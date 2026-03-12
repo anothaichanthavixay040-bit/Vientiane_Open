@@ -1,0 +1,24 @@
+{
+  "name": "Vientiane Karate Federation",
+  "short_name": "VKF",
+  "description": "Official website of the Vientiane Karate Federation",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#C8102E",
+  "background_color": "#0a0a0a",
+  "display": "standalone",
+  "start_url": "/",
+  "orientation": "portrait"
+}
