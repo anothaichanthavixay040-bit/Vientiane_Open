@@ -727,6 +727,9 @@ video {
 .h-4{
   height: 1rem;
 }
+.h-56{
+  height: 14rem;
+}
 .h-64{
   height: 16rem;
 }
@@ -741,9 +744,6 @@ video {
 }
 .h-px{
   height: 1px;
-}
-.h-56{
-  height: 14rem;
 }
 .max-h-\[480px\]{
   max-height: 480px;
@@ -781,6 +781,9 @@ video {
 .w-4{
   width: 1rem;
 }
+.w-56{
+  width: 14rem;
+}
 .w-64{
   width: 16rem;
 }
@@ -795,9 +798,6 @@ video {
 }
 .w-px{
   width: 1px;
-}
-.w-56{
-  width: 14rem;
 }
 .min-w-0{
   min-width: 0px;

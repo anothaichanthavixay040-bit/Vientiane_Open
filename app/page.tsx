@@ -3,7 +3,7 @@ import { Calendar, MapPin, Clock, Trophy, Users, Shield, ChevronRight, Zap } fro
 
 const stats = [
   { num: '2026', label: 'Championship Year' },
-  { num: '8+', label: 'Age Categories' },
+  { num: '6+', label: 'Age Categories' },
   { num: 'WKF', label: 'Certified Rules' },
   { num: '16–17', label: 'May, Vientiane' },
 ]
@@ -20,7 +20,7 @@ const features = [
   { icon: <Zap size={22} className="text-[#C8102E]"/>, title: 'Real-Time Check-In', desc: 'QR code scanning system — instant athlete check-in with live status updates across all devices.' },
   { icon: <Trophy size={22} className="text-[#C8102E]"/>, title: 'Live Results', desc: 'Match scores and standings update in real-time. Follow every bout as it happens.' },
   { icon: <Shield size={22} className="text-[#C8102E]"/>, title: 'WKF Certified', desc: 'Official WKF/AKF competition rules applied across all categories and age groups.' },
-  { icon: <Users size={22} className="text-[#C8102E]"/>, title: '8 Age Categories', desc: 'From Under 8 to Senior — every age group, Kata and Kumite, Male and Female.' },
+  { icon: <Users size={22} className="text-[#C8102E]"/>, title: '6 Age Categories', desc: 'From Under 6 to Senior — every age group, Kata and Kumite, Male and Female.' },
 ]
 
 export default function HomePage() {
@@ -32,7 +32,7 @@ export default function HomePage() {
         <div className="absolute inset-0" style={{background:'radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,16,46,0.15) 0%, transparent 60%)'}}/>
 
         {/* Decorative text */}
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 font-bebas text-[120px] sm:text-[180px] lg:text-[220px] text-[#C8102E]/05 leading-none select-none hidden sm:block" style={{writingMode:'vertical-rl', letterSpacing:'20px'}}>VKF</div>
+        {/* <div className="absolute right-4 top-1/2 -translate-y-1/2 font-bebas text-[120px] sm:text-[180px] lg:text-[220px] text-[#C8102E]/05 leading-none select-none hidden sm:block" style={{writingMode:'vertical-rl', letterSpacing:'20px'}}>VKF</div> */}
 
         <div className="relative z-10 text-center px-4 py-20 max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 font-condensed text-[11px] sm:text-xs tracking-[4px] text-[#C9A84C] border border-[#C9A84C]/40 px-4 py-2 mb-6 sm:mb-8">
@@ -81,7 +81,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <div className="font-condensed text-xs tracking-[5px] text-[#C9A84C] uppercase mb-3">Upcoming Event</div>
-            <h2 className="font-bebas text-4xl sm:text-6xl lg:text-7xl text-white tracking-widest">VIENTIANE OPEN <span className="text-[#C8102E]">2026</span></h2>
+            <h2 className="font-bebas text-4xl sm:text-6xl lg:text-7xl text-white tracking-widest">Vientiane Open Karate Championship <span className="text-[#C8102E]">2026</span></h2>
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#C8102E] to-[#C9A84C] mx-auto mt-4"/>
           </div>
 
@@ -89,7 +89,7 @@ export default function HomePage() {
             {[
               { icon: <Calendar size={18}/>, label: 'Date', val: '16–17 May, 2026' },
               { icon: <MapPin size={18}/>, label: 'Venue', val: 'Vientiane Center Mall' },
-              { icon: <Clock size={18}/>, label: 'Registration Closes', val: '10 April, 2026' },
+              { icon: <Clock size={18}/>, label: 'Registration Closes', val: '31 April, 2026' },
             ].map(i => (
               <div key={i.label} className="bg-[#1a1a1a] border border-[#C9A84C]/12 p-5 flex items-center gap-4">
                 <div className="w-10 h-10 bg-[#C8102E]/15 border border-[#C8102E]/30 flex items-center justify-center text-[#C8102E] flex-shrink-0">{i.icon}</div>
@@ -122,14 +122,6 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-            <div className="flex-1 bg-[#1a1a1a] border border-[#C9A84C]/12 p-5 flex items-center gap-4">
-              <div className="font-bebas text-4xl text-[#C9A84C]">$15</div>
-              <div><div className="font-condensed text-[10px] tracking-[3px] text-white/40 uppercase">Individual Event</div><div className="text-sm text-white/70">Per athlete / per category</div></div>
-            </div>
-            <div className="flex-1 bg-[#1a1a1a] border border-[#C9A84C]/12 p-5 flex items-center gap-4">
-              <div className="font-bebas text-4xl text-[#C9A84C]">$30</div>
-              <div><div className="font-condensed text-[10px] tracking-[3px] text-white/40 uppercase">Team Event</div><div className="text-sm text-white/70">Per team / per category</div></div>
-            </div>
             <div className="flex-1 bg-[#C9A84C]/08 border border-[#C9A84C]/20 p-5 flex items-center gap-4">
               <div className="text-3xl">🏅</div>
               <div><div className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] uppercase">Awards</div><div className="text-sm text-white/70">Top 4 receive medals & certificates</div></div>
