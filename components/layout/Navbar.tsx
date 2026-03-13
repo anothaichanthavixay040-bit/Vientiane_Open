@@ -43,7 +43,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <Image
-                src="/vkf-logo.png"
+                src="/real-logo.png"
                 alt="VKF Logo"
                 width={44}
                 height={44}
@@ -64,10 +64,10 @@ export default function Navbar() {
                     {l.label}
                     {l.href === '/results' && (
                       <span className="ml-1.5 inline-flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-[#C8102E] rounded-full live-pulse"/>
+                        <span className="w-1.5 h-1.5 bg-[#C8102E] rounded-full live-pulse" />
                       </span>
                     )}
-                    <span className={`absolute -bottom-1 left-0 h-px bg-[#C9A84C] transition-all ${pathname === l.href ? 'w-full' : 'w-0 group-hover:w-full'}`}/>
+                    <span className={`absolute -bottom-1 left-0 h-px bg-[#C9A84C] transition-all ${pathname === l.href ? 'w-full' : 'w-0 group-hover:w-full'}`} />
                   </Link>
                 </li>
               ))}
@@ -75,33 +75,40 @@ export default function Navbar() {
 
             {/* CTA */}
             <div className="hidden lg:flex items-center gap-3">
-              <Link href="/events" className="font-condensed text-xs tracking-widest uppercase bg-[#C8102E] text-white px-5 py-2.5 hover:bg-[#ff1a3a] transition-colors" style={{clipPath:'polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)'}}>
+              <Link href="/events" className="font-condensed text-xs tracking-widest uppercase bg-[#C8102E] text-white px-5 py-2.5 hover:bg-[#ff1a3a] transition-colors" style={{ clipPath: 'polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)' }}>
                 Register Now
               </Link>
             </div>
 
             {/* Hamburger */}
             <button onClick={toggleMenu} className="lg:hidden p-2 text-white" aria-label="Toggle menu">
-              {open ? <X size={22}/> : <Menu size={22}/>}
+              {open ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
       </nav>
 
       {/* Mobile overlay */}
-      <div className={`fixed inset-0 z-40 bg-[#0a0a0a]/98 flex flex-col items-center justify-center gap-8 transition-all duration-400 lg:hidden ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} style={{top:'64px'}}>
+      <div className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 transition-all duration-400 lg:hidden 
+    ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        style={{
+          top: '0', // แนะนำให้ใช้ 0 เพื่อให้เบลอทั้งหน้าจอจะดูพรีเมียมกว่า
+          backgroundColor: 'rgba(10, 10, 10, 0.8)', // สีดำแบบโปร่งแสง 80%
+          backdropFilter: open ? 'blur(12px)' : 'blur(0px)', // สั่งเบลอพื้นหลัง
+          WebkitBackdropFilter: open ? 'blur(12px)' : 'blur(0px)', // รองรับ Safari
+        }}>
         {links.map((l, i) => (
           <Link key={l.href} href={l.href}
             className={`font-bebas text-4xl tracking-widest transition-all duration-300 flex items-center gap-3 ${pathname === l.href ? 'text-[#C8102E]' : 'text-white hover:text-[#C9A84C]'}`}
             style={{ transitionDelay: `${i * 60}ms`, opacity: open ? 1 : 0, transform: open ? 'translateY(0)' : 'translateY(20px)' }}
           >
             {l.label}
-            {l.href === '/results' && <span className="w-2 h-2 bg-[#C8102E] rounded-full live-pulse"/>}
+            {l.href === '/results' && <span className="w-2 h-2 bg-[#C8102E] rounded-full live-pulse" />}
           </Link>
         ))}
         <Link href="/events" onClick={() => { setOpen(false); document.body.style.overflow = '' }}
           className="mt-4 font-condensed text-sm tracking-widest uppercase bg-[#C8102E] text-white px-8 py-3 hover:bg-[#ff1a3a] transition-colors"
-          style={{clipPath:'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)'}}>
+          style={{ clipPath: 'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)' }}>
           Register Now
         </Link>
       </div>

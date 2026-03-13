@@ -1,6 +1,6 @@
 const stats = [
   { num: '2026', label: 'Championship Year' },
-  { num: '8+', label: 'Age Categories' },
+  { num: '6+', label: 'Age Categories' },
   { num: 'WKF', label: 'Certified Rules' },
   { num: '16–17', label: 'May, Vientiane' },
 ]

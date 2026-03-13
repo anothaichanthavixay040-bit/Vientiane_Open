@@ -4,7 +4,7 @@ import { Calendar, MapPin, Clock, Trophy, Users, Shield, ChevronRight, Zap } fro
 const stats = [
   { num: '2026', label: 'Championship Year' },
   { num: '6+', label: 'Age Categories' },
-  { num: 'WKF', label: 'Certified Rules' },
+  { num: 'REWARD', label: 'MEDAL & E-CERTIFICATE' },
   { num: '16–17', label: 'May, Vientiane' },
 ]
 
@@ -124,7 +124,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             <div className="flex-1 bg-[#C9A84C]/08 border border-[#C9A84C]/20 p-5 flex items-center gap-4">
               <div className="text-3xl">🏅</div>
-              <div><div className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] uppercase">Awards</div><div className="text-sm text-white/70">Top 4 receive medals & certificates</div></div>
+              <div><div className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] uppercase">Awards</div><div className="text-sm text-white/70">Top 4 receive medals & E-certificates</div></div>
             </div>
           </div>
         </div>

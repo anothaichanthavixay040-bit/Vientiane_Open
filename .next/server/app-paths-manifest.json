@@ -1,3 +1,10 @@
 {
-  "/page": "app/page.js"
+  "/api/athletes/route": "app/api/athletes/route.js",
+  "/api/stream/route": "app/api/stream/route.js",
+  "/api/checkin/route": "app/api/checkin/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/about/page": "app/about/page.js",
+  "/events/page": "app/events/page.js",
+  "/checkin/page": "app/checkin/page.js"
 }
