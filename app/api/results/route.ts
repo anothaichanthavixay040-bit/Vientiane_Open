@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { matchResults, broadcast } from '@/lib/store'
 
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic'
 
 export async function GET() {

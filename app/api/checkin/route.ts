@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { athletes, checkInLog, broadcast } from '@/lib/store'
 import { CheckInEvent } from '@/types'
 
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: NextRequest) {
