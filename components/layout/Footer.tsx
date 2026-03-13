@@ -43,7 +43,7 @@ export default function Footer() {
               <li><a href="mailto:chansouda.p@nuol.edu.la" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><Mail size={14}/> chansouda.p@nuol.edu.la</a></li>
               <li><a href="tel:+85620888998877" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><Phone size={14}/> +856 20 88899887</a></li>
               <li><a href="https://wa.me/85620224377711" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><MessageCircle size={14}/> +856 20 22437711</a></li>
-              <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><Facebook size={14}/> Vientiane Karate-Do Federation</a></li>
+              <li><a href="https://facebook.com/Vientianekarate" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><Facebook size={14}/> Vientiane Karate-Do Federation</a></li>
             </ul>
           </div>
         </div>
