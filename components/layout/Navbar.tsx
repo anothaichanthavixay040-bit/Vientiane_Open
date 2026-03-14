@@ -43,7 +43,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <Image
-                src="/real-logo.png"
+                src="/lo.png"
                 alt="VKF Logo"
                 width={44}
                 height={44}
