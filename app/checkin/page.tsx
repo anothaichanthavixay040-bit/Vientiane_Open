@@ -125,7 +125,7 @@ export default function CheckInHubPage() {
         </div>
 
         {/* Scanner CTA card */}
-        <div className="relative bg-gradient-to-r from-[#C8102E]/10 to-[#1a1a1a] border border-[#C8102E]/30 p-5 sm:p-6 mb-6 overflow-hidden">
+        {/* <div className="relative bg-gradient-to-r from-[#C8102E]/10 to-[#1a1a1a] border border-[#C8102E]/30 p-5 sm:p-6 mb-6 overflow-hidden">
           <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-5">
             <Scan size={120} />
           </div>
@@ -148,7 +148,7 @@ export default function CheckInHubPage() {
               <ExternalLink size={14} className="text-white/60 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
-        </div>
+        </div> */}
 
         {/* Quick manual check-in */}
         <div className="bg-[#111] border border-[#C9A84C]/12 p-4 sm:p-5 mb-6">
@@ -181,7 +181,7 @@ export default function CheckInHubPage() {
           </form>
           {/* Demo quick buttons */}
           <div className="flex flex-wrap gap-1.5 mt-3">
-            <span className="font-condensed text-[9px] tracking-[2px] text-white/20 uppercase self-center mr-1">Demo BIBs:</span>
+            <span className="font-condensed text-[9px] tracking-[2px] text-white/20 uppercase self-center mr-1">BIBs:</span>
             {athletes.slice(0, 6).map(a => (
               <button
                 key={a.id}

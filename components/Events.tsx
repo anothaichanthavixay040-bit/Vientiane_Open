@@ -89,7 +89,7 @@ export default function Events() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, marginBottom: 40 }} className="info-grid">
                 {[
                   { label: 'Rules', val: 'WKF / AKF', note: 'Latest competition rules apply' },
-                  { label: 'Categories', val: 'U8 to Senior', note: '8 age groups · Kata & Kumite' },
+                  { label: 'Categories', val: 'U6 to Senior', note: '6 age groups · Kata & Kumite' },
                   { label: 'Age Reference', val: '16 May, 2026', note: 'Age calculated on first competition day' },
                 ].map(b => (
                   <div key={b.label} style={{ background: 'var(--dark2)', border: '1px solid rgba(201,168,76,0.08)', padding: 24 }}>
@@ -139,7 +139,7 @@ export default function Events() {
                 </div>
 
                 {/* Fees */}
-                <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 24 }}>
+                {/* <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 24 }}>
                   {[{ amt: '$15', label: 'Individual event / per athlete' }, { amt: '$30', label: 'Team event / per team' }].map(f => (
                     <div key={f.amt} style={{
                       background: 'var(--dark2)', border: '1px solid rgba(201,168,76,0.12)',
@@ -149,7 +149,7 @@ export default function Events() {
                       <div style={{ fontFamily: 'var(--font-barlow-condensed)', fontSize: 11, letterSpacing: 3, color: 'rgba(232,232,232,0.5)', textTransform: 'uppercase', marginTop: 4 }}>{f.label}</div>
                     </div>
                   ))}
-                </div>
+                </div> */}
               </div>
 
               {/* Awards */}

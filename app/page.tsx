@@ -89,7 +89,7 @@ export default function HomePage() {
             {[
               { icon: <Calendar size={18}/>, label: 'Date', val: '16–17 May, 2026' },
               { icon: <MapPin size={18}/>, label: 'Venue', val: 'Vientiane Center Mall' },
-              { icon: <Clock size={18}/>, label: 'Registration Closes', val: '31 April, 2026' },
+              { icon: <Clock size={18}/>, label: 'Registration Closes', val: '30 April, 2026' },
             ].map(i => (
               <div key={i.label} className="bg-[#1a1a1a] border border-[#C9A84C]/12 p-5 flex items-center gap-4">
                 <div className="w-10 h-10 bg-[#C8102E]/15 border border-[#C8102E]/30 flex items-center justify-center text-[#C8102E] flex-shrink-0">{i.icon}</div>

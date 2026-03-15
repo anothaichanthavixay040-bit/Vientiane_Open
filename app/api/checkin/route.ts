@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
   athlete.checkedInAt = new Date().toISOString()
   event = { athleteId: athlete.id, athleteName: athlete.name, category: athlete.category, country: athlete.country, timestamp: new Date().toISOString(), status: 'success' }
   checkInLog.unshift(event)
-  broadcast('checkin', event)
+  broadcast('checkin', event) 
   broadcast('athlete_update', athlete)
   
   return NextResponse.json({ ...event, athlete }, { status: 200 })

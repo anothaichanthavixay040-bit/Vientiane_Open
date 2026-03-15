@@ -5,7 +5,7 @@ const registerLinks = [
   { label: 'Team Register', sub: 'Register your full team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', emoji: '👥' },
   { label: 'Athlete Register', sub: 'USD 15 per athlete / category', href: 'https://forms.gle/vevCSWHsHTQr8gfz6', emoji: '🥋' },
   { label: 'Team Officials', sub: 'Coaches & team management', href: 'https://forms.gle/qCAfm3iokE6q38NJA', emoji: '📋' },
-  { label: 'Referee Register', sub: 'WKF / AKF certified referees', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', emoji: '⚖️' },
+  { label: 'Referee Register', sub: 'referees', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', emoji: '⚖️' },
   { label: 'Hotel Booking', sub: 'Official HQ hotel · Book by 30 Apr', href: 'https://forms.gle/WsJrt5LViMisrEZG8', emoji: '🏨' },
 ]
 
@@ -69,7 +69,7 @@ export default function EventsPage() {
           {/* Info boxes */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-8">
             {[
-              { label: 'Rules', val: 'WKF / AKF', note: 'Latest competition rules apply' },
+              // { label: 'Rules', val: 'WKF / AKF', note: 'Latest competition rules apply' },
               { label: 'Categories', val: 'U8 to Senior', note: '8 age groups · Kata & Kumite' },
               { label: 'Age Reference', val: '16 May, 2026', note: 'Age calculated on first day' },
             ].map(b => (
@@ -100,7 +100,7 @@ export default function EventsPage() {
               ))}
             </div>
             {/* Fees */}
-            <div className="flex flex-col sm:flex-row gap-3 mt-4">
+            {/* <div className="flex flex-col sm:flex-row gap-3 mt-4">
               <div className="flex-1 bg-[#1a1a1a] border border-[#C9A84C]/12 p-5 flex items-center gap-4">
                 <div className="font-bebas text-5xl text-[#C9A84C]">$15</div>
                 <div><div className="font-condensed text-[10px] tracking-[3px] text-white/40 uppercase">Individual Event</div><div className="text-sm text-white/60">Per athlete / per category</div></div>
@@ -109,7 +109,7 @@ export default function EventsPage() {
                 <div className="font-bebas text-5xl text-[#C9A84C]">$30</div>
                 <div><div className="font-condensed text-[10px] tracking-[3px] text-white/40 uppercase">Team Event</div><div className="text-sm text-white/60">Per team / per category</div></div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Schedule */}
