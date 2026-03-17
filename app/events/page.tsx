@@ -3,7 +3,7 @@ import { Calendar, MapPin, Clock, ChevronRight, Trophy, Hotel } from 'lucide-rea
 
 const registerLinks = [
   { label: 'Team Register', sub: 'Register your full team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', emoji: '👥' },
-  { label: 'Athlete Register', sub: 'USD 15 per athlete / category', href: 'https://forms.gle/vevCSWHsHTQr8gfz6', emoji: '🥋' },
+  { label: 'Athlete Register', sub: 'USD 15 per athlete / category', href: 'https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform', emoji: '🥋' },
   { label: 'Team Officials', sub: 'Coaches & team management', href: 'https://forms.gle/qCAfm3iokE6q38NJA', emoji: '📋' },
   { label: 'Referee Register', sub: 'referees', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', emoji: '⚖️' },
   { label: 'Hotel Booking', sub: 'Official HQ hotel · Book by 30 Apr', href: 'https://forms.gle/WsJrt5LViMisrEZG8', emoji: '🏨' },

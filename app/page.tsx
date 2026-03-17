@@ -10,7 +10,7 @@ const stats = [
 
 const registerLinks = [
   { label: 'Team Register', sub: 'Register your full team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', icon: '👥' },
-  { label: 'Athlete Register', sub: 'USD 15 / category', href: 'https://forms.gle/vevCSWHsHTQr8gfz6', icon: '🥋' },
+  { label: 'Athlete Register', sub: 'USD 15 / category', href: 'https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform', icon: '🥋' },
   { label: 'Team Officials', sub: 'Coaches & management', href: 'https://forms.gle/qCAfm3iokE6q38NJA', icon: '📋' },
   { label: 'Referee Register', sub: 'WKF / AKF certified', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', icon: '⚖️' },
   { label: 'Hotel Booking', sub: 'Official HQ hotel', href: 'https://forms.gle/WsJrt5LViMisrEZG8', icon: '🏨' },

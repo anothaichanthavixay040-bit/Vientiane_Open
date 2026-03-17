@@ -3,7 +3,7 @@ import Categories from './Categories'
 
 const registerLinks = [
   { label: 'Team Register', sub: 'Register your full team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', icon: 'team' },
-  { label: 'Athlete Register', sub: 'USD 15 per athlete / category', href: 'https://forms.gle/vevCSWHsHTQr8gfz6', icon: 'athlete' },
+  { label: 'Athlete Register', sub: 'USD 15 per athlete / category', href: 'https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform', icon: 'athlete' },
   { label: 'Team Officials', sub: 'Coaches & team management', href: 'https://forms.gle/qCAfm3iokE6q38NJA', icon: 'official' },
   { label: 'Referee Register', sub: 'WKF / AKF certified', href: 'https://forms.gle/MFmXHNZQ1csU1eo1A', icon: 'referee' },
   { label: 'Hotel Booking', sub: 'Official HQ hotel · Book by 30 Apr', href: 'https://forms.gle/WsJrt5LViMisrEZG8', icon: 'hotel' },
