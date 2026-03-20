@@ -16,15 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/events/page.js"
     ],
-    "/checkin/page": [
+    "/about/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/checkin/page.js"
-    ],
-    "/checkin/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/checkin/layout.js"
+      "static/chunks/app/about/page.js"
     ]
   }
 }

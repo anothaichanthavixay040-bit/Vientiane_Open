@@ -9,10 +9,10 @@ const stats = [
 ]
 
 const registerLinks = [
-  { label: 'Team Register', sub: 'Register your full team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', icon: '👥' },
-  { label: 'Athlete Register', sub: 'USD 15 / category', href: 'https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform', icon: '🥋' },
-  { label: 'Team Officials', sub: 'Coaches & management', href: 'https://forms.gle/qCAfm3iokE6q38NJA', icon: '📋' },
-  { label: 'Referee Register', sub: 'WKF / AKF certified', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', icon: '⚖️' },
+  { label: 'Team Register', sub: 'Register your team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', icon: '👥' },
+  { label: 'Athlete Register', sub: 'All categories', href: 'https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform', icon: '🥋' },
+  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: 'https://forms.gle/qCAfm3iokE6q38NJA', icon: '📋' },
+  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', icon: '⚖️' },
   { label: 'Hotel Booking', sub: 'Official HQ hotel', href: 'https://forms.gle/WsJrt5LViMisrEZG8', icon: '🏨' },
 ]
 
@@ -148,9 +148,9 @@ export default function HomePage() {
             ))}
           </div>
           <div className="mt-8 flex justify-center">
-            <Link href="/checkin" className="font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-8 py-3.5 hover:bg-[#ff1a3a] transition-colors text-center" style={{clipPath:'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)'}}>
+            {/* <Link href="/checkin" className="font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-8 py-3.5 hover:bg-[#ff1a3a] transition-colors text-center" style={{clipPath:'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)'}}>
               Go to Check-In
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>
