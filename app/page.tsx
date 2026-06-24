@@ -1,0 +1,211 @@
+import Link from 'next/link'
+import { Calendar, MapPin, Clock, Trophy, Users, Shield, ChevronRight, Zap, Ticket, Award, ArrowRight } from 'lucide-react'
+
+const stats = [
+  { num: '2026', label: 'Championship Year' },
+  { num: '6+', label: 'Age Categories' },
+  { num: 'REWARD', label: 'MEDAL & E-CERTIFICATE' },
+  { num: '29-30', label: 'August, Vientiane' },
+]
+
+const registerLinks = [
+  { label: 'Team Register', sub: 'Register your team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', icon: '👥' },
+  { label: 'Athlete Register', sub: 'All categories', href: 'https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform?usp=sharing&ouid=116850375016875621661', icon: '🥋' },
+  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: 'https://forms.gle/qCAfm3iokE6q38NJA', icon: '📋' },
+  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', icon: '⚖️' },
+  { label: 'Hotel Booking', sub: 'Official HQ hotel', href: 'https://forms.gle/WsJrt5LViMisrEZG8', icon: '🏨' },
+]
+
+const features = [
+  { icon: <Zap size={22} className="text-[#C8102E]"/>, title: 'Real-Time Check-In', desc: 'QR code scanning system — instant athlete check-in with live status updates across all devices.' },
+  { icon: <Trophy size={22} className="text-[#C8102E]"/>, title: 'Live Results', desc: 'Match scores and standings update in real-time. Follow every bout as it happens.' },
+  { icon: <Shield size={22} className="text-[#C8102E]"/>, title: 'WKF Certified', desc: 'Official WKF/AKF competition rules applied across all categories and age groups.' },
+  { icon: <Users size={22} className="text-[#C8102E]"/>, title: '6 Age Categories', desc: 'From Under 6 to Senior — every age group, Kata and Kumite, Male and Female.' },
+]
+
+export default function HomePage() {
+  return (
+    <div className="pt-16 sm:pt-20">
+      {/* Hero */}
+      <section className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden grid-bg">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#1a0808] to-[#0a0a0a]"/>
+        <div className="absolute inset-0" style={{background:'radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,16,46,0.15) 0%, transparent 60%)'}}/>
+
+        {/* Decorative text */}
+        {/* <div className="absolute right-4 top-1/2 -translate-y-1/2 font-bebas text-[120px] sm:text-[180px] lg:text-[220px] text-[#C8102E]/5 leading-none select-none hidden sm:block" style={{writingMode:'vertical-rl', letterSpacing:'20px'}}>VKF</div> */}
+
+        <div className="relative z-10 text-center px-4 py-20 max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 font-condensed text-[11px] sm:text-xs tracking-[4px] text-[#C9A84C] border border-[#C9A84C]/40 px-4 py-2 mb-6 sm:mb-8">
+            <span>◆</span> OFFICIAL GOVERNING BODY · LAOS <span>◆</span>
+          </div>
+
+          <h1 className="font-bebas text-[72px] sm:text-[110px] lg:text-[140px] leading-[0.88] tracking-[3px] text-white mb-4" style={{animationDelay:'0.1s'}}>
+            VIENTIANE<br/>
+            <span className="text-[#C8102E]">KARATE</span>
+          </h1>
+          <div className="font-bebas text-3xl sm:text-5xl lg:text-6xl tracking-[8px] sm:tracking-[12px] text-[#C9A84C] mb-6">FEDERATION</div>
+
+          <p className="text-sm sm:text-base text-white/60 max-w-md mx-auto mb-8 sm:mb-10 leading-relaxed font-light">
+            Developing champions, empowering youth, and elevating the spirit of karate across Laos and the world.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+            <Link href="/events" className="w-full sm:w-auto font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-8 py-3.5 hover:bg-[#ff1a3a] transition-colors text-center" style={{clipPath:'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)'}}>
+              View Events
+            </Link>
+            {/* <Link href="/checkin" className="w-full sm:w-auto font-condensed text-sm tracking-[3px] uppercase border border-[#C9A84C] text-[#C9A84C] px-8 py-3.5 hover:bg-[#C9A84C]/10 transition-colors text-center" style={{clipPath:'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)'}}>
+              Athlete Check-In
+            </Link> */}
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 font-condensed text-[10px] tracking-[3px]">
+          <div className="w-px h-10 bg-gradient-to-b from-[#C9A84C]/60 to-transparent animate-pulse"/>
+          SCROLL
+        </div>
+      </section>
+
+      {/* Stats bar */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 bg-[#C8102E]">
+        {stats.map(s => (
+          <div key={s.num} className="py-6 sm:py-8 px-4 text-center border-r border-white/15 last:border-r-0 [&:nth-child(2)]:border-r-0 sm:[&:nth-child(2)]:border-r">
+            <div className="font-bebas text-4xl sm:text-5xl text-white tracking-widest">{s.num}</div>
+            <div className="font-condensed text-[10px] sm:text-xs tracking-[2px] text-white/70 uppercase mt-1">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Featured Event — Ticket (Ewent.la style) */}
+      <section id="tickets" className="relative py-16 sm:py-24 px-4 bg-[#0a0a0a] grid-bg overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none" style={{background:'radial-gradient(ellipse 55% 60% at 50% 38%, rgba(200,16,46,0.13) 0%, transparent 62%)'}}/>
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 font-condensed text-[11px] tracking-[4px] uppercase text-[#C9A84C] border border-[#C9A84C]/40 px-4 py-2 mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C8102E] live-pulse"/> Registration Open
+            </div>
+            <h2 className="font-bebas text-4xl sm:text-6xl lg:text-7xl text-white tracking-widest">FEATURED <span className="text-[#C8102E]">EVENT</span></h2>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-[#C8102E] to-[#C9A84C] mx-auto mt-4"/>
+          </div>
+
+          {/* Ticket card */}
+          <div className="ticket group relative grid grid-cols-1 md:grid-cols-[340px_1fr] bg-[#141414] border border-[#C9A84C]/20 overflow-hidden transition-all duration-500 hover:border-[#C8102E]/60 hover:shadow-[0_30px_80px_-30px_rgba(200,16,46,0.6)]">
+            {/* Poster */}
+            <div className="relative overflow-hidden bg-black aspect-[5/7] md:aspect-auto md:min-h-[470px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/posterweb.jpeg" alt="Vientiane Open Karate Championships 2026 poster" className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"/>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"/>
+              <div className="absolute top-5 left-0 bg-[#C8102E] text-white font-bebas text-lg sm:text-xl tracking-widest px-4 py-1.5 shadow-lg" style={{clipPath:'polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)'}}>
+                29–30 AUG 2026
+              </div>
+            </div>
+
+            {/* Perforation notches (desktop) */}
+            <span className="hidden md:block absolute top-[-13px] left-[340px] -translate-x-1/2 w-6 h-6 rounded-full bg-[#0a0a0a] z-20"/>
+            <span className="hidden md:block absolute bottom-[-13px] left-[340px] -translate-x-1/2 w-6 h-6 rounded-full bg-[#0a0a0a] z-20"/>
+
+            {/* Details */}
+            <div className="relative p-6 sm:p-9 flex flex-col justify-center border-t border-dashed md:border-t-0 md:border-l md:border-dashed border-[#C9A84C]/30">
+              <div className="font-condensed text-[11px] tracking-[3px] uppercase text-[#C9A84C] mb-2">Vientiane Karate Federation presents</div>
+              <h3 className="font-bebas text-3xl sm:text-4xl lg:text-5xl text-white tracking-wide leading-[0.92] mb-5">
+                VIENTIANE OPEN KARATE<br/>CHAMPIONSHIPS <span className="text-[#C8102E]">2026</span>
+              </h3>
+
+              <div className="space-y-2.5 mb-6">
+                {[
+                  { icon: <Calendar size={16}/>, val: '29–30 August, 2026' },
+                  { icon: <MapPin size={16}/>, val: 'Vientiane, Laos' },
+                  { icon: <Award size={16}/>, val: 'Medals & E-Certificates for Top 4' },
+                ].map(d => (
+                  <div key={d.val} className="flex items-center gap-3 text-sm text-white/75">
+                    <span className="text-[#C9A84C] flex-shrink-0">{d.icon}</span>{d.val}
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-7">
+                {['Kata','Kumite','U8 – Senior','WKF / AKF Rules'].map(c => (
+                  <span key={c} className="font-condensed text-[10px] tracking-[2px] uppercase bg-[#C8102E]/15 border border-[#C8102E]/30 text-[#C8102E] px-2.5 py-1">{c}</span>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform" target="_blank" rel="noopener noreferrer"
+                  className="flex-1 inline-flex items-center justify-center gap-2 font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-6 py-3.5 hover:bg-[#ff1a3a] transition-colors group/btn" style={{clipPath:'polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)'}}>
+                  <Ticket size={16}/> Register Now <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform"/>
+                </a>
+                <Link href="/events" className="flex-1 inline-flex items-center justify-center gap-2 font-condensed text-sm tracking-[3px] uppercase border border-[#C9A84C] text-[#C9A84C] px-6 py-3.5 hover:bg-[#C9A84C]/10 transition-colors" style={{clipPath:'polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)'}}>
+                  View Details
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-center text-xs text-white/35 mt-5 font-condensed tracking-wide">Secure your spot — limited categories per athlete. Powered by VKF.</p>
+        </div>
+      </section>
+
+      {/* Event spotlight */}
+      <section className="py-16 sm:py-24 px-4 bg-[#111]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="font-condensed text-xs tracking-[5px] text-[#C9A84C] uppercase mb-3">Upcoming Event</div>
+            <h2 className="font-bebas text-4xl sm:text-6xl lg:text-7xl text-white tracking-widest">Vientiane Open Karate Championship <span className="text-[#C8102E]">2026</span></h2>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-[#C8102E] to-[#C9A84C] mx-auto mt-4"/>
+          </div>
+
+            {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+              {[
+                { icon: <Calendar size={18}/>, label: 'Date', val: '29–30 August, 2026' },
+                { icon: <MapPin size={18}/>, label: 'Venue', val: 'Vientiane, Laos' },
+                { icon: <Clock size={18}/>, label: 'Registration', val: 'Open Now' },
+              ].map(i => (
+                <div key={i.label} className="bg-[#1a1a1a] border border-[#C9A84C]/12 p-5 flex items-center gap-4">
+                  <div className="w-10 h-10 bg-[#C8102E]/15 border border-[#C8102E]/30 flex items-center justify-center text-[#C8102E] flex-shrink-0">{i.icon}</div>
+                  <div>
+                    <div className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] uppercase">{i.label}</div>
+                    <div className="font-condensed text-sm sm:text-base text-white font-semibold mt-0.5">{i.val}</div>
+                  </div>
+                </div>
+              ))}
+            </div> */}
+
+          {/* Register grid */}
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-1.5 h-1.5 bg-[#C8102E] rounded-full float-dot"/>
+              <div className="font-bebas text-2xl sm:text-3xl text-white tracking-widest">Registration Links</div>
+              <span className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] border border-[#C9A84C]/30 px-2 py-0.5 uppercase">{registerLinks.length} Forms</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {registerLinks.map(r => (
+                <a key={r.label} href={r.href} target="_blank" rel="noopener noreferrer"
+                  className="register-card flex items-center justify-between gap-3 bg-[#1a1a1a] border border-[#C9A84C]/12 p-4 transition-all duration-300 hover:border-[#C8102E] hover:-translate-y-1 hover:shadow-[0_12px_30px_-12px_rgba(200,16,46,0.55)] group">
+                  <span className="register-accent"/>
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="w-10 h-10 bg-[#C8102E]/15 border border-[#C8102E]/30 flex items-center justify-center text-lg flex-shrink-0 transition-all duration-300 group-hover:bg-[#C8102E] group-hover:border-[#C8102E] group-hover:scale-110 group-hover:-rotate-6">{r.icon}</div>
+                    <div>
+                      <div className="font-condensed text-sm tracking-widest uppercase text-white group-hover:text-[#C9A84C] transition-colors">{r.label}</div>
+                      <div className="text-xs text-white/40 mt-0.5 group-hover:text-white/70 transition-colors">{r.sub}</div>
+                    </div>
+                  </div>
+                  <span className="relative z-10 flex items-center gap-1 flex-shrink-0">
+                    <span className="font-condensed text-[10px] tracking-[2px] uppercase text-[#C9A84C] max-w-0 overflow-hidden opacity-0 group-hover:max-w-[60px] group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">Open</span>
+                    <ChevronRight size={16} className="text-[#C9A84C] group-hover:translate-x-1 group-hover:text-[#C8102E] transition-all"/>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <div className="flex-1 bg-[#C9A84C]/8 border border-[#C9A84C]/20 p-5 flex items-center gap-4">
+              <div className="text-3xl">🏅</div>
+              <div><div className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] uppercase">Awards</div><div className="text-sm text-white/70">Top 4 receive medals & E-certificates</div></div>
+            </div>
+          </div> */}
+        </div>
+      </section>
+    </div>
+  )
+}
