@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
-import { REG_TYPE_KEYS } from '@/lib/registrationTypes'
+import { REG_TYPES, REG_TYPE_KEYS, regToRow, rowToReg } from '@/lib/registrationTypes'
 
 export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
@@ -13,52 +13,62 @@ function fail(e: unknown) {
   return NextResponse.json({ error: message }, { status: 500 })
 }
 
-const ALLOWED = ['type', 'name', 'email', 'phone', 'country', 'organization', 'role', 'quantity', 'notes'] as const
-
-// CREATE — public registration
+// CREATE — public registration, routed to the type's own table
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    if (!REG_TYPE_KEYS.includes(body.type)) return NextResponse.json({ error: 'Invalid registration type' }, { status: 400 })
-    if (!body.name || !String(body.name).trim()) return NextResponse.json({ error: 'Name is required' }, { status: 400 })
-
-    const row: Record<string, unknown> = {}
-    for (const k of ALLOWED) if (body[k] !== undefined && body[k] !== '') row[k] = body[k]
-    if (row.quantity !== undefined) row.quantity = Number(row.quantity) || null
-
+    const cfg = REG_TYPES[body.type]
+    if (!cfg) return NextResponse.json({ error: 'Invalid registration type' }, { status: 400 })
+    for (const f of cfg.fields) {
+      if (f.required && !String(body[f.key] ?? '').trim()) {
+        return NextResponse.json({ error: `${f.label} is required` }, { status: 400 })
+      }
+    }
     const supabase = getSupabase()
-    const { data, error } = await supabase.from('registrations').insert(row).select('*').single()
+    const { data, error } = await supabase.from(cfg.table).insert(regToRow(cfg.type, body)).select('*').single()
     if (error) throw error
-    return NextResponse.json(data, { status: 201 })
+    return NextResponse.json(rowToReg(cfg.type, data), { status: 201 })
   } catch (e) {
     return fail(e)
   }
 }
 
-// READ — list registrations (admin); optional ?type=
+// READ — merged list across all four tables (admin); optional ?type=
 export async function GET(req: NextRequest) {
   try {
-    const type = new URL(req.url).searchParams.get('type')
+    const only = new URL(req.url).searchParams.get('type')
     const supabase = getSupabase()
-    let q = supabase.from('registrations').select('*').order('created_at', { ascending: false })
-    if (type) q = q.eq('type', type)
-    const { data, error } = await q
-    if (error) throw error
-    return NextResponse.json(data ?? [])
+    const types = only ? [only] : REG_TYPE_KEYS
+    const results = await Promise.all(types.map(async t => {
+      const cfg = REG_TYPES[t]
+      if (!cfg) return []
+      const { data, error } = await supabase.from(cfg.table).select('*').order('created_at', { ascending: false })
+      if (error) throw error
+      return (data ?? []).map(row => rowToReg(t, row))
+    }))
+    const merged = results.flat().sort((a, b) =>
+      String(b.created_at).localeCompare(String(a.created_at)))
+    return NextResponse.json(merged)
   } catch (e) {
     return fail(e)
   }
 }
 
-// DELETE — remove a registration (?id=…)
+// DELETE — remove a registration (?id=…&type=…)
 export async function DELETE(req: NextRequest) {
   try {
     const url = new URL(req.url)
     let id = url.searchParams.get('id') ?? undefined
-    if (!id) { const body = await req.json().catch(() => ({})); id = body.id }
-    if (!id) return NextResponse.json({ error: 'id is required' }, { status: 400 })
+    let type = url.searchParams.get('type') ?? undefined
+    if (!id || !type) {
+      const body = await req.json().catch(() => ({}))
+      id = id || body.id
+      type = type || body.type
+    }
+    const cfg = type ? REG_TYPES[type] : undefined
+    if (!id || !cfg) return NextResponse.json({ error: 'id and valid type are required' }, { status: 400 })
     const supabase = getSupabase()
-    const { error } = await supabase.from('registrations').delete().eq('id', id)
+    const { error } = await supabase.from(cfg.table).delete().eq('id', id)
     if (error) throw error
     return NextResponse.json({ id, deleted: true })
   } catch (e) {

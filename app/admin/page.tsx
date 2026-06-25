@@ -119,10 +119,10 @@ export default function AdminPage() {
     try { const res = await fetch(`/api/athletes?id=${encodeURIComponent(id)}`, { method: 'DELETE' }); if (!res.ok) { await load() } } catch { await load() }
   }
 
-  const deleteRegistration = async (id: string) => {
+  const deleteRegistration = async (id: string, type: string) => {
     if (!confirm('Delete this registration?')) return
     setRegistrations(prev => prev.filter(r => r.id !== id))
-    try { const res = await fetch(`/api/registrations?id=${encodeURIComponent(id)}`, { method: 'DELETE' }); if (!res.ok) { await load() } } catch { await load() }
+    try { const res = await fetch(`/api/registrations?id=${encodeURIComponent(id)}&type=${encodeURIComponent(type)}`, { method: 'DELETE' }); if (!res.ok) { await load() } } catch { await load() }
   }
 
   const setMF = (patch: Partial<MatchForm>) => setMatchForm(f => f ? { ...f, ...patch } : f)
@@ -390,7 +390,7 @@ export default function AdminPage() {
                         <td className="px-4 py-3 text-white/40 text-xs whitespace-nowrap">{new Date(r.created_at).toLocaleDateString()}</td>
                         <td className="px-4 py-3">
                           <div className="flex items-center justify-end">
-                            <button onClick={() => deleteRegistration(r.id)} title="Delete" className="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-white/10 text-white/70 hover:text-[#C8102E] hover:border-[#C8102E]/40 transition-colors"><Trash2 size={14} /></button>
+                            <button onClick={() => deleteRegistration(r.id, r.type)} title="Delete" className="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-white/10 text-white/70 hover:text-[#C8102E] hover:border-[#C8102E]/40 transition-colors"><Trash2 size={14} /></button>
                           </div>
                         </td>
                       </tr>
