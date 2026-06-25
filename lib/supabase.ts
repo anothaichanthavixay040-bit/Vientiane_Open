@@ -7,10 +7,11 @@ import { Athlete, MatchResult } from '@/types'
 // message) instead of crashing the build.
 export function getSupabase(): SupabaseClient {
   const url = process.env.SUPABASE_URL
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  // New Supabase "secret key" (sb_secret_...) or the legacy service_role key.
+  const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !key) {
     throw new Error(
-      'Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local (and in your Cloudflare Pages environment variables).'
+      'Supabase is not configured. Set SUPABASE_URL and SUPABASE_SECRET_KEY in .env.local (and in your Cloudflare Pages environment variables).'
     )
   }
   return createClient(url, key, {

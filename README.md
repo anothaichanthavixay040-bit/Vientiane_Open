@@ -49,9 +49,10 @@ Athletes, matches and check-ins are stored in **Supabase** (PostgreSQL).
 2. **Add your keys** — copy `.env.example` to `.env.local` and fill in:
    ```
    SUPABASE_URL=https://kqkikfndytdzrfnearkd.supabase.co
-   SUPABASE_SERVICE_ROLE_KEY=<service_role key from Project Settings → API>
+   SUPABASE_SECRET_KEY=sb_secret_...   (Project Settings → API Keys → Secret key)
    ```
-   The `service_role` key is **secret** — it stays server-side and is never sent to the browser.
+   The **Secret key** (`sb_secret_…`) is privileged — it stays server-side and is never sent to the
+   browser. The publishable key is *not* used. (Legacy `service_role` keys also still work.)
 3. **Restart** `npm run dev`.
 4. For the live site, add the same two variables in **Cloudflare Pages → Settings → Environment variables**, then redeploy.
 
