@@ -20,7 +20,8 @@ export default function ResultsPage() {
 
   const fetchResults = async () => {
     const res = await fetch('/api/results')
-    if (res.ok) setResults(await res.json())
+    const data = await res.json().catch(() => null)
+    if (res.ok && Array.isArray(data)) setResults(data)
   }
 
   useEffect(() => {
@@ -28,9 +29,15 @@ export default function ResultsPage() {
     esRef.current = new EventSource('/api/stream')
     esRef.current.addEventListener('result_update', (e) => {
       const updated: MatchResult = JSON.parse(e.data)
-      setResults(prev => prev.map(r => r.id === updated.id ? updated : r))
+      setResults(prev => prev.some(r => r.id === updated.id)
+        ? prev.map(r => r.id === updated.id ? updated : r)
+        : [...prev, updated]) // new match created -> add it live
       setFlashIds(prev => new Set([...prev, updated.id]))
       setTimeout(() => setFlashIds(prev => { const n = new Set(prev); n.delete(updated.id); return n }), 600)
+    })
+    esRef.current.addEventListener('result_delete', (e) => {
+      const { id } = JSON.parse(e.data)
+      setResults(prev => prev.filter(r => r.id !== id))
     })
     return () => esRef.current?.close()
   }, [])

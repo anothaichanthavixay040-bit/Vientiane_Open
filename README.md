@@ -40,12 +40,35 @@ Admin updates score → PATCH /api/results
         (Results page, Check-In page)
 ```
 
-## Production Upgrade
+## Database (Supabase)
 
-For production, replace `lib/store.ts` with:
-- **Firebase Realtime DB** or **Firestore** — recommended for scale
-- **Supabase** — PostgreSQL + realtime
-- **Pusher** or **Ably** — managed WebSocket service
+Athletes, matches and check-ins are stored in **Supabase** (PostgreSQL).
+
+### Setup
+1. **Create the tables + seed data** — open your Supabase project → **SQL Editor** → New query → paste the contents of [`supabase/schema.sql`](supabase/schema.sql) → **Run**.
+2. **Add your keys** — copy `.env.example` to `.env.local` and fill in:
+   ```
+   SUPABASE_URL=https://kqkikfndytdzrfnearkd.supabase.co
+   SUPABASE_SERVICE_ROLE_KEY=<service_role key from Project Settings → API>
+   ```
+   The `service_role` key is **secret** — it stays server-side and is never sent to the browser.
+3. **Restart** `npm run dev`.
+4. For the live site, add the same two variables in **Cloudflare Pages → Settings → Environment variables**, then redeploy.
+
+### CRUD API (`/api/results`, `/api/athletes`)
+| Method | Action |
+|--------|--------|
+| `GET`    | list |
+| `POST`   | create |
+| `PATCH`  | update (by `id`) |
+| `DELETE` | remove (`?id=` or `{ id }`) |
+
+Manage matches at **`/admin`** (create, edit, score, set winner, delete). Writes go through the
+server-side service-role key; the public can only read (enforced by Row Level Security).
+
+> **Live updates:** the SSE stream (`/api/stream`) broadcasts within a single server instance
+> (works in local dev). On Cloudflare's multi-isolate edge, swap it for **Supabase Realtime**
+> to sync live scores across all visitors.
 
 ## Admin Panel
 
