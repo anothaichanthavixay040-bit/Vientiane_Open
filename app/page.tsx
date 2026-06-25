@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Calendar, MapPin, Clock, Trophy, Users, Shield, ChevronRight, Zap, Ticket, Award, ArrowRight } from 'lucide-react'
+import { Calendar, MapPin, Clock, Trophy, Users, Shield, ChevronRight, Zap } from 'lucide-react'
+import FeaturedTicket from '@/components/FeaturedTicket'
 
 const stats = [
   { num: '2026', label: 'Championship Year' },
@@ -76,74 +77,8 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Featured Event — Ticket (Ewent.la style) */}
-      <section id="tickets" className="relative py-16 sm:py-24 px-4 bg-[#0a0a0a] grid-bg overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{background:'radial-gradient(ellipse 55% 60% at 50% 38%, rgba(200,16,46,0.13) 0%, transparent 62%)'}}/>
-        <div className="relative z-10 max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 font-condensed text-[11px] tracking-[4px] uppercase text-[#C9A84C] border border-[#C9A84C]/40 px-4 py-2 mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C8102E] live-pulse"/> Registration Open
-            </div>
-            <h2 className="font-bebas text-4xl sm:text-6xl lg:text-7xl text-white tracking-widest">FEATURED <span className="text-[#C8102E]">EVENT</span></h2>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-[#C8102E] to-[#C9A84C] mx-auto mt-4"/>
-          </div>
-
-          {/* Ticket card */}
-          <div className="ticket group relative grid grid-cols-1 md:grid-cols-[340px_1fr] bg-[#141414] border border-[#C9A84C]/20 overflow-hidden transition-all duration-500 hover:border-[#C8102E]/60 hover:shadow-[0_30px_80px_-30px_rgba(200,16,46,0.6)]">
-            {/* Poster */}
-            <div className="relative overflow-hidden bg-black aspect-[5/7] md:aspect-auto md:min-h-[470px]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/posterweb.jpeg" alt="Vientiane Open Karate Championships 2026 poster" className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"/>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"/>
-              <div className="absolute top-5 left-0 bg-[#C8102E] text-white font-bebas text-lg sm:text-xl tracking-widest px-4 py-1.5 shadow-lg" style={{clipPath:'polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)'}}>
-                29–30 AUG 2026
-              </div>
-            </div>
-
-            {/* Perforation notches (desktop) */}
-            <span className="hidden md:block absolute top-[-13px] left-[340px] -translate-x-1/2 w-6 h-6 rounded-full bg-[#0a0a0a] z-20"/>
-            <span className="hidden md:block absolute bottom-[-13px] left-[340px] -translate-x-1/2 w-6 h-6 rounded-full bg-[#0a0a0a] z-20"/>
-
-            {/* Details */}
-            <div className="relative p-6 sm:p-9 flex flex-col justify-center border-t border-dashed md:border-t-0 md:border-l md:border-dashed border-[#C9A84C]/30">
-              <div className="font-condensed text-[11px] tracking-[3px] uppercase text-[#C9A84C] mb-2">Vientiane Karate Federation presents</div>
-              <h3 className="font-bebas text-3xl sm:text-4xl lg:text-5xl text-white tracking-wide leading-[0.92] mb-5">
-                VIENTIANE OPEN KARATE<br/>CHAMPIONSHIPS <span className="text-[#C8102E]">2026</span>
-              </h3>
-
-              <div className="space-y-2.5 mb-6">
-                {[
-                  { icon: <Calendar size={16}/>, val: '29–30 August, 2026' },
-                  { icon: <MapPin size={16}/>, val: 'Vientiane, Laos' },
-                  { icon: <Award size={16}/>, val: 'Medals & E-Certificates for Top 4' },
-                ].map(d => (
-                  <div key={d.val} className="flex items-center gap-3 text-sm text-white/75">
-                    <span className="text-[#C9A84C] flex-shrink-0">{d.icon}</span>{d.val}
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-2 mb-7">
-                {['Kata','Kumite','U8 – Senior','WKF / AKF Rules'].map(c => (
-                  <span key={c} className="font-condensed text-[10px] tracking-[2px] uppercase bg-[#C8102E]/15 border border-[#C8102E]/30 text-[#C8102E] px-2.5 py-1">{c}</span>
-                ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform" target="_blank" rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-6 py-3.5 hover:bg-[#ff1a3a] transition-colors group/btn" style={{clipPath:'polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)'}}>
-                  <Ticket size={16}/> Register Now <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform"/>
-                </a>
-                <Link href="/events" className="flex-1 inline-flex items-center justify-center gap-2 font-condensed text-sm tracking-[3px] uppercase border border-[#C9A84C] text-[#C9A84C] px-6 py-3.5 hover:bg-[#C9A84C]/10 transition-colors" style={{clipPath:'polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)'}}>
-                  View Details
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <p className="text-center text-xs text-white/35 mt-5 font-condensed tracking-wide">Secure your spot — limited categories per athlete. Powered by VKF.</p>
-        </div>
-      </section>
+      {/* Featured Event — Ticket (opens detail modal) */}
+      <FeaturedTicket />
 
       {/* Event spotlight */}
       <section className="py-16 sm:py-24 px-4 bg-[#111]">
