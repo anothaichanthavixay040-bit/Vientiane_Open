@@ -2,11 +2,11 @@ import { Mail, Phone, MessageCircle, MapPin, User } from 'lucide-react'
 import { FacebookIcon } from '@/components/icons/FacebookIcon'
 
 const registerLinks = [
-  { label: 'Team Register', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9' },
+  { label: 'Team Register', href: '/register/team' },
   { label: 'Athlete Register', href: '/register' },
-  { label: 'Team Officials Register', href: 'https://forms.gle/qCAfm3iokE6q38NJA' },
-  { label: 'Referee Register', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A' },
-  { label: 'Hotel Booking', href: 'https://forms.gle/WsJrt5LViMisrEZG8' },
+  { label: 'Team Officials Register', href: '/register/official' },
+  { label: 'Referee Register', href: '/register/referee' },
+  { label: 'Hotel Booking', href: '/register/hotel' },
 ]
 
 export default function ContactPage() {

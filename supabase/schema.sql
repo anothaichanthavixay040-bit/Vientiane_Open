@@ -48,21 +48,40 @@ create table if not exists public.checkins (
   created_at   timestamptz not null default now()
 );
 
+-- ---------- REGISTRATIONS (team / official / referee / hotel) ----------
+create table if not exists public.registrations (
+  id           text primary key default gen_random_uuid()::text,
+  type         text not null check (type in ('team','official','referee','hotel')),
+  name         text not null,
+  email        text,
+  phone        text,
+  country      text,
+  organization text,
+  role         text,
+  quantity     integer,
+  notes        text,
+  status       text not null default 'pending',
+  created_at   timestamptz not null default now()
+);
+
 -- ---------- Row Level Security ----------
 -- Public can READ (for /results and /checkin). All writes go through the
 -- server-side service-role key, which bypasses RLS — so no write policies
 -- are needed and the browser can never write directly.
-alter table public.matches  enable row level security;
-alter table public.athletes enable row level security;
-alter table public.checkins enable row level security;
+alter table public.matches       enable row level security;
+alter table public.athletes      enable row level security;
+alter table public.checkins      enable row level security;
+alter table public.registrations enable row level security;
 
-drop policy if exists "public read matches"  on public.matches;
-drop policy if exists "public read athletes" on public.athletes;
-drop policy if exists "public read checkins" on public.checkins;
+drop policy if exists "public read matches"       on public.matches;
+drop policy if exists "public read athletes"      on public.athletes;
+drop policy if exists "public read checkins"      on public.checkins;
+drop policy if exists "public read registrations" on public.registrations;
 
-create policy "public read matches"  on public.matches  for select using (true);
-create policy "public read athletes" on public.athletes for select using (true);
-create policy "public read checkins" on public.checkins for select using (true);
+create policy "public read matches"       on public.matches       for select using (true);
+create policy "public read athletes"      on public.athletes      for select using (true);
+create policy "public read checkins"      on public.checkins      for select using (true);
+create policy "public read registrations" on public.registrations for select using (true);
 
 -- ---------- SEED DATA ----------
 insert into public.athletes (id, name, country, category, weight_class, gender, qr_code, checked_in, team_name, bib) values

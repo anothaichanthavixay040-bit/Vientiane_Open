@@ -2,11 +2,11 @@ import Link from 'next/link'
 import { Calendar, MapPin, Clock, ChevronRight, Trophy, Hotel } from 'lucide-react'
 
 const registerLinks = [
-  { label: 'Team Register', sub: 'Register your team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', emoji: '👥' },
+  { label: 'Team Register', sub: 'Register your team', href: '/register/team', emoji: '👥' },
   { label: 'Athlete Register', sub: 'Register online — saved to our database', href: '/register', emoji: '🥋' },
-  { label: 'Team Officials', sub: 'Delegates, coaches & officials ', href: 'https://forms.gle/qCAfm3iokE6q38NJA', emoji: '📋' },
-  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', emoji: '⚖️' },
-  { label: 'Hotel Booking', sub: 'Official HQ hotel · Book by 30 Apr', href: 'https://forms.gle/WsJrt5LViMisrEZG8', emoji: '🏨' },
+  { label: 'Team Officials', sub: 'Delegates, coaches & officials ', href: '/register/official', emoji: '📋' },
+  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: '/register/referee', emoji: '⚖️' },
+  { label: 'Hotel Booking', sub: 'Official HQ hotel · Book by 30 Apr', href: '/register/hotel', emoji: '🏨' },
 ]
 
 const schedule = [
@@ -215,7 +215,7 @@ export default function EventsPage() {
                 <p className="text-xs text-white/30 mt-3">★ Rates include breakfast · Must be reserved via OC before 30 April, 2026</p>
               </div>
               <div className="flex-shrink-0">
-                <a href="https://forms.gle/WsJrt5LViMisrEZG8" target="_blank" rel="noopener noreferrer"
+                <a href="/register/hotel" target="_blank" rel="noopener noreferrer"
                   className="font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-6 py-3 hover:bg-[#ff1a3a] transition-colors block text-center" style={{clipPath:'polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)'}}>
                   Book Hotel
                 </a>

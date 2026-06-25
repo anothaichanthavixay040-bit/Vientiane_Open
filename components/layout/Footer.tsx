@@ -27,11 +27,11 @@ export default function Footer() {
             <div className="font-condensed text-xs tracking-widest uppercase text-[#C9A84C] mb-4">Registration</div>
             <ul className="space-y-2">
               {[
-                ['https://forms.gle/HjJ7qCe2ooNUHdSm9','Team Register'],
+                ['/register/team','Team Register'],
                 ['/register','Athlete Register'],
-                ['https://forms.gle/qCAfm3iokE6q38NJA','Team Officials'],
-                ['https://forms.gle/MFmXHnZQ1csU1eo1A','Referee Register'],
-                ['https://forms.gle/WsJrt5LViMisrEZG8','Hotel Booking'],
+                ['/register/official','Team Officials'],
+                ['/register/referee','Referee Register'],
+                ['/register/hotel','Hotel Booking'],
               ].map(([href, label]) => (
                 <li key={label}><a href={href} {...(href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })} className="text-sm text-white/60 hover:text-[#C9A84C] transition-colors font-condensed tracking-wide">{label}</a></li>
               ))}

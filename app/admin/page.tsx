@@ -2,7 +2,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { MatchResult, Athlete } from '@/types'
 import { categories } from '@/lib/categories'
-import { Plus, Pencil, Trash2, X, Save, AlertTriangle, Swords, Users, CheckCircle2 } from 'lucide-react'
+import { Plus, Pencil, Trash2, X, Save, AlertTriangle, Swords, Users, CheckCircle2, ClipboardList } from 'lucide-react'
+
+type Registration = {
+  id: string; type: string; name: string; email?: string; phone?: string;
+  country?: string; organization?: string; role?: string; quantity?: number; notes?: string;
+  status: string; created_at: string
+}
 
 /* ---------- helpers ---------- */
 const inputCls = 'w-full bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm font-condensed px-3 py-2 focus:outline-none focus:border-[#C8102E]'
@@ -35,9 +41,10 @@ const blankAthlete = (): AthleteForm => ({
 })
 
 export default function AdminPage() {
-  const [tab, setTab] = useState<'matches' | 'athletes'>('matches')
+  const [tab, setTab] = useState<'matches' | 'athletes' | 'registrations'>('matches')
   const [matches, setMatches] = useState<MatchResult[]>([])
   const [athletes, setAthletes] = useState<Athlete[]>([])
+  const [registrations, setRegistrations] = useState<Registration[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState<string | null>(null)
@@ -49,12 +56,14 @@ export default function AdminPage() {
   const load = useCallback(async () => {
     setLoading(true)
     try {
-      const [mRes, aRes] = await Promise.all([fetch('/api/results'), fetch('/api/athletes')])
+      const [mRes, aRes, rRes] = await Promise.all([fetch('/api/results'), fetch('/api/athletes'), fetch('/api/registrations')])
       const mData = await mRes.json().catch(() => null)
       const aData = await aRes.json().catch(() => null)
+      const rData = await rRes.json().catch(() => null)
       if (!mRes.ok || !Array.isArray(mData)) { setError(mData?.error || 'Failed to load matches'); setMatches([]) }
       else { setMatches(mData) }
       if (aRes.ok && Array.isArray(aData)) setAthletes(aData)
+      if (rRes.ok && Array.isArray(rData)) setRegistrations(rData)
       if ((mRes.ok && Array.isArray(mData))) setError(null)
     } catch { setError('Could not reach the server') }
     finally { setLoading(false) }
@@ -110,6 +119,12 @@ export default function AdminPage() {
     try { const res = await fetch(`/api/athletes?id=${encodeURIComponent(id)}`, { method: 'DELETE' }); if (!res.ok) { await load() } } catch { await load() }
   }
 
+  const deleteRegistration = async (id: string) => {
+    if (!confirm('Delete this registration?')) return
+    setRegistrations(prev => prev.filter(r => r.id !== id))
+    try { const res = await fetch(`/api/registrations?id=${encodeURIComponent(id)}`, { method: 'DELETE' }); if (!res.ok) { await load() } } catch { await load() }
+  }
+
   const setMF = (patch: Partial<MatchForm>) => setMatchForm(f => f ? { ...f, ...patch } : f)
   const setAF = (patch: Partial<AthleteForm>) => setAthleteForm(f => f ? { ...f, ...patch } : f)
 
@@ -132,7 +147,7 @@ export default function AdminPage() {
 
         {/* tabs */}
         <div className="flex gap-2 mb-8 border-b border-white/10">
-          {([['matches', 'Matches', <Swords key="s" size={15} />], ['athletes', 'Athletes', <Users key="u" size={15} />]] as const).map(([id, label, icon]) => (
+          {([['matches', 'Matches', <Swords key="s" size={15} />], ['athletes', 'Athletes', <Users key="u" size={15} />], ['registrations', 'Registrations', <ClipboardList key="r" size={15} />]] as const).map(([id, label, icon]) => (
             <button key={id} onClick={() => { setTab(id); setError(null); setMatchForm(null); setAthleteForm(null) }}
               className={`inline-flex items-center gap-2 font-condensed text-sm tracking-[2px] uppercase px-4 py-3 -mb-px border-b-2 transition-colors ${tab === id ? 'border-[#C8102E] text-white' : 'border-transparent text-white/40 hover:text-white'}`}>
               {icon} {label}
@@ -338,6 +353,44 @@ export default function AdminPage() {
                           <div className="flex items-center gap-2 justify-end">
                             <button onClick={() => { setAthleteForm({ ...blankAthlete(), ...a, teamName: a.teamName || '', bib: a.bib || '' }); setError(null); window.scrollTo({ top: 0, behavior: 'smooth' }) }} title="Edit" className="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-white/10 text-white/70 hover:text-[#C9A84C] hover:border-[#C9A84C]/40 transition-colors"><Pencil size={14} /></button>
                             <button onClick={() => deleteAthlete(a.id)} title="Delete" className="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-white/10 text-white/70 hover:text-[#C8102E] hover:border-[#C8102E]/40 transition-colors"><Trash2 size={14} /></button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ============ REGISTRATIONS ============ */}
+        {!loading && tab === 'registrations' && (
+          <>
+            <p className="text-sm text-white/40 font-condensed mb-5">Team, officials, referee and hotel submissions from the public registration forms.</p>
+            {registrations.length === 0 && !error ? (
+              <div className="text-center text-white/40 font-condensed tracking-widest py-16">No registrations yet.</div>
+            ) : (
+              <div className="overflow-x-auto border border-[#C9A84C]/10">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-[#111] text-left font-condensed text-[10px] tracking-[2px] uppercase text-[#C9A84C]">
+                      <th className="px-4 py-3">Type</th><th className="px-4 py-3">Name</th><th className="px-4 py-3 hidden sm:table-cell">Org / Role</th>
+                      <th className="px-4 py-3 hidden md:table-cell">Contact</th><th className="px-4 py-3 hidden lg:table-cell">Notes</th><th className="px-4 py-3">Date</th><th className="px-4 py-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {registrations.map(r => (
+                      <tr key={r.id} className="border-t border-white/5 hover:bg-white/[0.02] align-top">
+                        <td className="px-4 py-3"><span className="font-condensed text-[10px] tracking-widest uppercase bg-[#C9A84C]/15 border border-[#C9A84C]/30 text-[#C9A84C] px-2 py-1">{r.type}</span></td>
+                        <td className="px-4 py-3 text-white">{r.name}{r.country ? <span className="text-white/30 text-xs"> · {r.country}</span> : null}{r.quantity ? <span className="text-white/40 text-xs"> · ×{r.quantity}</span> : null}</td>
+                        <td className="px-4 py-3 text-white/60 hidden sm:table-cell">{r.organization || '—'}{r.role ? <span className="block text-[#C8102E] text-xs">{r.role}</span> : null}</td>
+                        <td className="px-4 py-3 text-white/60 hidden md:table-cell text-xs">{r.email || '—'}{r.phone ? <span className="block">{r.phone}</span> : null}</td>
+                        <td className="px-4 py-3 text-white/50 hidden lg:table-cell text-xs max-w-[180px] truncate">{r.notes || '—'}</td>
+                        <td className="px-4 py-3 text-white/40 text-xs whitespace-nowrap">{new Date(r.created_at).toLocaleDateString()}</td>
+                        <td className="px-4 py-3">
+                          <div className="flex items-center justify-end">
+                            <button onClick={() => deleteRegistration(r.id)} title="Delete" className="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-white/10 text-white/70 hover:text-[#C8102E] hover:border-[#C8102E]/40 transition-colors"><Trash2 size={14} /></button>
                           </div>
                         </td>
                       </tr>

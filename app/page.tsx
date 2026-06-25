@@ -10,11 +10,11 @@ const stats = [
 ]
 
 const registerLinks = [
-  { label: 'Team Register', sub: 'Register your team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', icon: '👥' },
+  { label: 'Team Register', sub: 'Register your team', href: '/register/team', icon: '👥' },
   { label: 'Athlete Register', sub: 'Register online — saved to our database', href: '/register', icon: '🥋' },
-  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: 'https://forms.gle/qCAfm3iokE6q38NJA', icon: '📋' },
-  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', icon: '⚖️' },
-  { label: 'Hotel Booking', sub: 'Official HQ hotel', href: 'https://forms.gle/WsJrt5LViMisrEZG8', icon: '🏨' },
+  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: '/register/official', icon: '📋' },
+  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: '/register/referee', icon: '⚖️' },
+  { label: 'Hotel Booking', sub: 'Official HQ hotel', href: '/register/hotel', icon: '🏨' },
 ]
 
 const features = [
