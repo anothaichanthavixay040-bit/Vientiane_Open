@@ -6,7 +6,10 @@ export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 
 function fail(e: unknown) {
-  const message = e instanceof Error ? e.message : 'Server error'
+  const message =
+    e instanceof Error ? e.message
+      : (e && typeof e === 'object' && 'message' in e) ? String((e as { message: unknown }).message)
+        : 'Server error'
   return NextResponse.json({ error: message }, { status: 500 })
 }
 
