@@ -62,11 +62,6 @@ export default function Navbar() {
                 <li key={l.href}>
                   <Link href={l.href} className={`font-condensed text-sm tracking-widest uppercase transition-colors relative group ${pathname === l.href ? 'text-[#C9A84C]' : 'text-[#e8e8e8] hover:text-[#C9A84C]'}`}>
                     {l.label}
-                    {l.href === '/results' && (
-                      <span className="ml-1.5 inline-flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-[#C8102E] rounded-full live-pulse" />
-                      </span>
-                    )}
                     <span className={`absolute -bottom-1 left-0 h-px bg-[#C9A84C] transition-all ${pathname === l.href ? 'w-full' : 'w-0 group-hover:w-full'}`} />
                   </Link>
                 </li>
@@ -103,7 +98,6 @@ export default function Navbar() {
             style={{ transitionDelay: `${i * 60}ms`, opacity: open ? 1 : 0, transform: open ? 'translateY(0)' : 'translateY(20px)' }}
           >
             {l.label}
-            {l.href === '/results' && <span className="w-2 h-2 bg-[#C8102E] rounded-full live-pulse" />}
           </Link>
         ))}
         <Link href="/events" onClick={() => { setOpen(false); document.body.style.overflow = '' }}

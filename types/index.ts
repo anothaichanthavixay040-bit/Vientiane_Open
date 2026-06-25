@@ -21,22 +21,6 @@ export interface CheckInEvent {
   status: 'success' | 'already_checked' | 'not_found'
 }
 
-export interface MatchResult {
-  id: string
-  category: string
-  weightClass: string
-  gender: string
-  round: string
-  redAthlete: string
-  blueAthlete: string
-  redScore: number
-  blueScore: number
-  winner?: string
-  status: 'scheduled' | 'live' | 'completed'
-  mat: number
-  startTime?: string
-}
-
 export interface Category {
   name: string
   ageRange: string

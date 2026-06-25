@@ -1,5 +1,5 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { Athlete, MatchResult } from '@/types'
+import { Athlete } from '@/types'
 
 // Server-side Supabase client. Uses the service-role key, so it bypasses RLS
 // and is only ever created in API routes — never shipped to the browser.
@@ -20,58 +20,6 @@ export function getSupabase(): SupabaseClient {
 }
 
 /* ---------- row <-> app-type mappers ---------- */
-
-type MatchRow = {
-  id: string
-  category: string
-  weight_class: string
-  gender: string
-  round: string
-  red_athlete: string
-  blue_athlete: string
-  red_score: number
-  blue_score: number
-  winner: string | null
-  status: MatchResult['status']
-  mat: number
-  start_time: string | null
-}
-
-export function rowToMatch(r: MatchRow): MatchResult {
-  return {
-    id: r.id,
-    category: r.category,
-    weightClass: r.weight_class,
-    gender: r.gender,
-    round: r.round,
-    redAthlete: r.red_athlete,
-    blueAthlete: r.blue_athlete,
-    redScore: r.red_score,
-    blueScore: r.blue_score,
-    winner: r.winner ?? undefined,
-    status: r.status,
-    mat: r.mat,
-    startTime: r.start_time ?? undefined,
-  }
-}
-
-// Map a partial app-shaped match to DB columns (only defined keys).
-export function matchToRow(m: Partial<MatchResult>): Record<string, unknown> {
-  const row: Record<string, unknown> = {}
-  if (m.category !== undefined) row.category = m.category
-  if (m.weightClass !== undefined) row.weight_class = m.weightClass
-  if (m.gender !== undefined) row.gender = m.gender
-  if (m.round !== undefined) row.round = m.round
-  if (m.redAthlete !== undefined) row.red_athlete = m.redAthlete
-  if (m.blueAthlete !== undefined) row.blue_athlete = m.blueAthlete
-  if (m.redScore !== undefined) row.red_score = m.redScore
-  if (m.blueScore !== undefined) row.blue_score = m.blueScore
-  if (m.winner !== undefined) row.winner = m.winner || null
-  if (m.status !== undefined) row.status = m.status
-  if (m.mat !== undefined) row.mat = m.mat
-  if (m.startTime !== undefined) row.start_time = m.startTime || null
-  return row
-}
 
 type AthleteRow = {
   id: string

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Calendar, MapPin, Clock, Trophy, Users, Shield, ChevronRight, Zap } from 'lucide-react'
+import { Users, Shield, ChevronRight, Zap } from 'lucide-react'
 import FeaturedTicket from '@/components/FeaturedTicket'
 
 const stats = [
@@ -19,7 +19,6 @@ const registerLinks = [
 
 const features = [
   { icon: <Zap size={22} className="text-[#C8102E]"/>, title: 'Real-Time Check-In', desc: 'QR code scanning system — instant athlete check-in with live status updates across all devices.' },
-  { icon: <Trophy size={22} className="text-[#C8102E]"/>, title: 'Live Results', desc: 'Match scores and standings update in real-time. Follow every bout as it happens.' },
   { icon: <Shield size={22} className="text-[#C8102E]"/>, title: 'WKF Certified', desc: 'Official WKF/AKF competition rules applied across all categories and age groups.' },
   { icon: <Users size={22} className="text-[#C8102E]"/>, title: '6 Age Categories', desc: 'From Under 6 to Senior — every age group, Kata and Kumite, Male and Female.' },
 ]
