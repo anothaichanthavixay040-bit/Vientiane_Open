@@ -3,7 +3,7 @@ import { FacebookIcon } from '@/components/icons/FacebookIcon'
 
 const registerLinks = [
   { label: 'Team Register', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9' },
-  { label: 'Athlete Register', href: 'https://forms.gle/vevCSWHsHTQr8gfz6' },
+  { label: 'Athlete Register', href: '/register' },
   { label: 'Team Officials Register', href: 'https://forms.gle/qCAfm3iokE6q38NJA' },
   { label: 'Referee Register', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A' },
   { label: 'Hotel Booking', href: 'https://forms.gle/WsJrt5LViMisrEZG8' },
@@ -51,7 +51,7 @@ export default function ContactPage() {
             <div className="font-condensed text-xs tracking-[5px] text-[#C9A84C] uppercase mb-6">Quick Registration Links</div>
             <div className="space-y-2 mb-10">
               {registerLinks.map(r => (
-                <a key={r.label} href={r.href} target="_blank" rel="noopener noreferrer"
+                <a key={r.label} href={r.href} {...(r.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
                   className="register-card flex items-center justify-between bg-[#1a1a1a] border border-[#C9A84C]/10 p-4 transition-all duration-300 hover:border-[#C8102E] hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-12px_rgba(200,16,46,0.5)] group">
                   <span className="register-accent"/>
                   <span className="relative z-10 font-condensed text-sm tracking-widest uppercase text-white group-hover:text-[#C9A84C] transition-colors">{r.label}</span>

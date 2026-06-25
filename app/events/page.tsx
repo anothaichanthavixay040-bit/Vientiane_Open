@@ -3,7 +3,7 @@ import { Calendar, MapPin, Clock, ChevronRight, Trophy, Hotel } from 'lucide-rea
 
 const registerLinks = [
   { label: 'Team Register', sub: 'Register your team', href: 'https://forms.gle/HjJ7qCe2ooNUHdSm9', emoji: '👥' },
-  { label: 'Athlete Register', sub: 'All categories', href: 'https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform', emoji: '🥋' },
+  { label: 'Athlete Register', sub: 'Register online — saved to our database', href: '/register', emoji: '🥋' },
   { label: 'Team Officials', sub: 'Delegates, coaches & officials ', href: 'https://forms.gle/qCAfm3iokE6q38NJA', emoji: '📋' },
   { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: 'https://forms.gle/MFmXHnZQ1csU1eo1A', emoji: '⚖️' },
   { label: 'Hotel Booking', sub: 'Official HQ hotel · Book by 30 Apr', href: 'https://forms.gle/WsJrt5LViMisrEZG8', emoji: '🏨' },
@@ -90,7 +90,7 @@ export default function EventsPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {registerLinks.map(r => (
-                <a key={r.label} href={r.href} target="_blank" rel="noopener noreferrer"
+                <a key={r.label} href={r.href} {...(r.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
                   className="register-card flex items-center justify-between gap-3 bg-[#1a1a1a] border border-[#C9A84C]/12 p-4 transition-all duration-300 hover:border-[#C8102E] hover:-translate-y-1 hover:shadow-[0_12px_30px_-12px_rgba(200,16,46,0.55)] group">
                   <span className="register-accent"/>
                   <div className="flex items-center gap-3 relative z-10">

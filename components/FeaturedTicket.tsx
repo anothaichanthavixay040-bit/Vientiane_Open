@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Calendar, MapPin, Award, Clock, Ticket, ArrowRight, X, ChevronRight, Users } from 'lucide-react'
 
-const ATHLETE_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLScG_45_BylxaqmIWfVU4IaEykOPIJ9h0Zhr9DczLCW_MwFlzA/viewform'
+const ATHLETE_FORM = '/register'
 
 const facts = [
   { icon: <Calendar size={16} />, label: 'Date', val: '29–30 August, 2026' },
@@ -189,7 +189,7 @@ export default function FeaturedTicket() {
                 <div className="font-condensed text-[11px] tracking-[3px] uppercase text-[#C9A84C] mb-2 flex items-center gap-2"><Ticket size={14} /> Register</div>
                 <div className="grid grid-cols-1 gap-2 mb-5">
                   {registerLinks.map(r => (
-                    <a key={r.label} href={r.href} target="_blank" rel="noopener noreferrer"
+                    <a key={r.label} href={r.href} {...(r.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })} onClick={() => { if (r.href.startsWith('/')) setOpen(false) }}
                       className="register-card flex items-center justify-between gap-3 bg-[#1a1a1a] border border-[#C9A84C]/12 p-3.5 transition-all duration-300 hover:border-[#C8102E] hover:-translate-y-0.5 group/r">
                       <span className="register-accent" />
                       <span className="relative z-10 flex items-center gap-3">
