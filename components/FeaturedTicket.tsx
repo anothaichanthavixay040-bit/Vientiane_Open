@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Calendar, MapPin, Award, Clock, Ticket, ArrowRight, X, ChevronRight, Users } from 'lucide-react'
+import { Calendar, MapPin, Award, Clock, Ticket, ArrowRight, X, ChevronRight, Users, PersonStanding, ClipboardList, Scale, Hotel } from 'lucide-react'
 
 const ATHLETE_FORM = '/register'
 
@@ -16,11 +16,11 @@ const facts = [
 const categories = ['Kata', 'Kumite', 'Team Kata', 'Team Kumite']
 
 const registerLinks = [
-  { label: 'Athlete Register', sub: 'All age categories & events', href: ATHLETE_FORM, icon: '🥋' },
-  { label: 'Team Register', sub: 'Register your full team', href: '/register/team', icon: '👥' },
-  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: '/register/official', icon: '📋' },
-  { label: 'Referee Register', sub: 'WKF / AKF / National certified', href: '/register/referee', icon: '⚖️' },
-  { label: 'Hotel Booking', sub: 'Official HQ hotel', href: '/register/hotel', icon: '🏨' },
+  { label: 'Athlete Register', sub: 'All age categories & events', href: ATHLETE_FORM, Icon: PersonStanding },
+  { label: 'Team Register', sub: 'Register your full team', href: '/register/team', Icon: Users },
+  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: '/register/official', Icon: ClipboardList },
+  { label: 'Referee Register', sub: 'WKF / AKF / National certified', href: '/register/referee', Icon: Scale },
+  { label: 'Hotel Booking', sub: 'Official HQ hotel', href: '/register/hotel', Icon: Hotel },
 ]
 
 export default function FeaturedTicket() {
@@ -193,7 +193,7 @@ export default function FeaturedTicket() {
                       className="register-card flex items-center justify-between gap-3 bg-[#1a1a1a] border border-[#C9A84C]/12 p-3.5 transition-all duration-300 hover:border-[#C8102E] hover:-translate-y-0.5 group/r">
                       <span className="register-accent" />
                       <span className="relative z-10 flex items-center gap-3">
-                        <span className="w-9 h-9 flex items-center justify-center text-lg bg-[#C8102E]/15 border border-[#C8102E]/30 flex-shrink-0 transition-all duration-300 group-hover/r:bg-[#C8102E] group-hover/r:scale-110">{r.icon}</span>
+                        <span className="w-9 h-9 flex items-center justify-center bg-[#C8102E]/15 border border-[#C8102E]/30 flex-shrink-0 transition-all duration-300 group-hover/r:bg-[#C8102E] group-hover/r:scale-110"><r.Icon size={16} className="text-[#C9A84C] group-hover/r:text-white transition-colors"/></span>
                         <span>
                           <span className="block font-condensed text-sm tracking-widest uppercase text-white group-hover/r:text-[#C9A84C] transition-colors">{r.label}</span>
                           <span className="block text-xs text-white/45">{r.sub}</span>

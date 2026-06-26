@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Users, Shield, ChevronRight, Zap } from 'lucide-react'
+import { Users, Shield, ChevronRight, Zap, PersonStanding, ClipboardList, Scale, Hotel } from 'lucide-react'
 import FeaturedTicket from '@/components/FeaturedTicket'
 
 const stats = [
@@ -10,11 +10,11 @@ const stats = [
 ]
 
 const registerLinks = [
-  { label: 'Team Register', sub: 'Register your team', href: '/register/team', icon: '👥' },
-  { label: 'Athlete Register', sub: 'Register online — saved to our database', href: '/register', icon: '🥋' },
-  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: '/register/official', icon: '📋' },
-  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: '/register/referee', icon: '⚖️' },
-  { label: 'Hotel Booking', sub: 'Official HQ hotel', href: '/register/hotel', icon: '🏨' },
+  { label: 'Team Register', sub: 'Register your team', href: '/register/team', Icon: Users },
+  { label: 'Athlete Register', sub: 'Register online — saved to our database', href: '/register', Icon: PersonStanding },
+  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: '/register/official', Icon: ClipboardList },
+  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: '/register/referee', Icon: Scale },
+  { label: 'Hotel Booking', sub: 'Official HQ hotel', href: '/register/hotel', Icon: Hotel },
 ]
 
 const features = [
@@ -117,7 +117,7 @@ export default function HomePage() {
                   className="register-card flex items-center justify-between gap-3 bg-[#1a1a1a] border border-[#C9A84C]/12 p-4 transition-all duration-300 hover:border-[#C8102E] hover:-translate-y-1 hover:shadow-[0_12px_30px_-12px_rgba(200,16,46,0.55)] group">
                   <span className="register-accent"/>
                   <div className="flex items-center gap-3 relative z-10">
-                    <div className="w-10 h-10 bg-[#C8102E]/15 border border-[#C8102E]/30 flex items-center justify-center text-lg flex-shrink-0 transition-all duration-300 group-hover:bg-[#C8102E] group-hover:border-[#C8102E] group-hover:scale-110 group-hover:-rotate-6">{r.icon}</div>
+                    <div className="w-10 h-10 bg-[#C8102E]/15 border border-[#C8102E]/30 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#C8102E] group-hover:border-[#C8102E] group-hover:scale-110 group-hover:-rotate-6"><r.Icon size={18} className="text-[#C9A84C] group-hover:text-white transition-colors"/></div>
                     <div>
                       <div className="font-condensed text-sm tracking-widest uppercase text-white group-hover:text-[#C9A84C] transition-colors">{r.label}</div>
                       <div className="text-xs text-white/40 mt-0.5 group-hover:text-white/70 transition-colors">{r.sub}</div>
