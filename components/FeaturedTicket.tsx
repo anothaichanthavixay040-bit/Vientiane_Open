@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Calendar, MapPin, Award, Clock, Ticket, ArrowRight, X, ChevronRight, Users, ClipboardList, Scale, Hotel } from 'lucide-react'
-import { KarateIcon } from '@/components/icons/KarateIcon'
+import { Calendar, MapPin, Award, Clock, Ticket, ArrowRight, X, ChevronRight, Users, ClipboardList, Scale, Hotel, Swords } from 'lucide-react'
 
 const ATHLETE_FORM = '/register'
 
@@ -17,7 +16,7 @@ const facts = [
 const categories = ['Kata', 'Kumite', 'Team Kata', 'Team Kumite']
 
 const registerLinks = [
-  { label: 'Athlete Register', sub: 'All age categories & events', href: ATHLETE_FORM, Icon: KarateIcon },
+  { label: 'Athlete Register', sub: 'All age categories & events', href: ATHLETE_FORM, Icon: Swords },
   { label: 'Team Register', sub: 'Register your full team', href: '/register/team', Icon: Users },
   { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: '/register/official', Icon: ClipboardList },
   { label: 'Referee Register', sub: 'WKF / AKF / National certified', href: '/register/referee', Icon: Scale },
