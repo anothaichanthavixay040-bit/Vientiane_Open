@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Users, Shield, ChevronRight, Zap, ClipboardList, Scale, Hotel, Swords } from 'lucide-react'
 import FeaturedTicket from '@/components/FeaturedTicket'
 
 const stats = [
@@ -7,20 +6,6 @@ const stats = [
   { num: '6+', label: 'Age Categories' },
   { num: 'REWARD', label: 'MEDAL & E-CERTIFICATE' },
   { num: '29-30', label: 'August, Vientiane' },
-]
-
-const registerLinks = [
-  { label: 'Team Register', sub: 'Register your team', href: '/register/team', Icon: Users },
-  { label: 'Athlete Register', sub: 'Register online — saved to our database', href: '/register', Icon: Swords },
-  { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: '/register/official', Icon: ClipboardList },
-  { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: '/register/referee', Icon: Scale },
-  { label: 'Hotel Booking', sub: 'Official HQ hotel', href: '/register/hotel', Icon: Hotel },
-]
-
-const features = [
-  { icon: <Zap size={22} className="text-[#C8102E]"/>, title: 'Real-Time Check-In', desc: 'QR code scanning system — instant athlete check-in with live status updates across all devices.' },
-  { icon: <Shield size={22} className="text-[#C8102E]"/>, title: 'WKF Certified', desc: 'Official WKF/AKF competition rules applied across all categories and age groups.' },
-  { icon: <Users size={22} className="text-[#C8102E]"/>, title: '6 Age Categories', desc: 'From Under 6 to Senior — every age group, Kata and Kumite, Male and Female.' },
 ]
 
 export default function HomePage() {
@@ -79,67 +64,6 @@ export default function HomePage() {
       {/* Featured Event — Ticket (opens detail modal) */}
       <FeaturedTicket />
 
-      {/* Event spotlight */}
-      <section className="py-16 sm:py-24 px-4 bg-[#111]">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="font-condensed text-xs tracking-[5px] text-[#C9A84C] uppercase mb-3">Upcoming Event</div>
-            <h2 className="font-bebas text-4xl sm:text-6xl lg:text-7xl text-white tracking-widest">Vientiane Open Karate Championship <span className="text-[#C8102E]">2026</span></h2>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-[#C8102E] to-[#C9A84C] mx-auto mt-4"/>
-          </div>
-
-            {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-              {[
-                { icon: <Calendar size={18}/>, label: 'Date', val: '29–30 August, 2026' },
-                { icon: <MapPin size={18}/>, label: 'Venue', val: 'Vientiane, Laos' },
-                { icon: <Clock size={18}/>, label: 'Registration', val: 'Open Now' },
-              ].map(i => (
-                <div key={i.label} className="bg-[#1a1a1a] border border-[#C9A84C]/12 p-5 flex items-center gap-4">
-                  <div className="w-10 h-10 bg-[#C8102E]/15 border border-[#C8102E]/30 flex items-center justify-center text-[#C8102E] flex-shrink-0">{i.icon}</div>
-                  <div>
-                    <div className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] uppercase">{i.label}</div>
-                    <div className="font-condensed text-sm sm:text-base text-white font-semibold mt-0.5">{i.val}</div>
-                  </div>
-                </div>
-              ))}
-            </div> */}
-
-          {/* Register grid */}
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-1.5 h-1.5 bg-[#C8102E] rounded-full float-dot"/>
-              <div className="font-bebas text-2xl sm:text-3xl text-white tracking-widest">Registration Links</div>
-              <span className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] border border-[#C9A84C]/30 px-2 py-0.5 uppercase">{registerLinks.length} Forms</span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {registerLinks.map(r => (
-                <a key={r.label} href={r.href} {...(r.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
-                  className="register-card flex items-center justify-between gap-3 bg-[#1a1a1a] border border-[#C9A84C]/12 p-4 transition-all duration-300 hover:border-[#C8102E] hover:-translate-y-1 hover:shadow-[0_12px_30px_-12px_rgba(200,16,46,0.55)] group">
-                  <span className="register-accent"/>
-                  <div className="flex items-center gap-3 relative z-10">
-                    <div className="w-10 h-10 bg-[#C8102E]/15 border border-[#C8102E]/30 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#C8102E] group-hover:border-[#C8102E] group-hover:scale-110 group-hover:-rotate-6"><r.Icon size={18} className="text-[#C9A84C] group-hover:text-white transition-colors"/></div>
-                    <div>
-                      <div className="font-condensed text-sm tracking-widest uppercase text-white group-hover:text-[#C9A84C] transition-colors">{r.label}</div>
-                      <div className="text-xs text-white/40 mt-0.5 group-hover:text-white/70 transition-colors">{r.sub}</div>
-                    </div>
-                  </div>
-                  <span className="relative z-10 flex items-center gap-1 flex-shrink-0">
-                    <span className="font-condensed text-[10px] tracking-[2px] uppercase text-[#C9A84C] max-w-0 overflow-hidden opacity-0 group-hover:max-w-[60px] group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">Open</span>
-                    <ChevronRight size={16} className="text-[#C9A84C] group-hover:translate-x-1 group-hover:text-[#C8102E] transition-all"/>
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-            <div className="flex-1 bg-[#C9A84C]/8 border border-[#C9A84C]/20 p-5 flex items-center gap-4">
-              <div className="text-3xl">🏅</div>
-              <div><div className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] uppercase">Awards</div><div className="text-sm text-white/70">Top 4 receive medals & E-certificates</div></div>
-            </div>
-          </div> */}
-        </div>
-      </section>
     </div>
   )
 }
