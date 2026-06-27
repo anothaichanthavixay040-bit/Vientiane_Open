@@ -10,6 +10,7 @@ export interface Athlete {
   checkedInAt?: string
   teamName?: string
   bib: string
+  events?: string
 }
 
 export interface CheckInEvent {

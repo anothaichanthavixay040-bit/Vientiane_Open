@@ -33,6 +33,7 @@ type AthleteRow = {
   checked_in_at: string | null
   team_name: string | null
   bib: string | null
+  events: string | null
 }
 
 export function rowToAthlete(r: AthleteRow): Athlete {
@@ -48,6 +49,7 @@ export function rowToAthlete(r: AthleteRow): Athlete {
     checkedInAt: r.checked_in_at ?? undefined,
     teamName: r.team_name ?? undefined,
     bib: r.bib ?? '',
+    events: r.events ?? undefined,
   }
 }
 
@@ -63,5 +65,6 @@ export function athleteToRow(a: Partial<Athlete>): Record<string, unknown> {
   if (a.checkedInAt !== undefined) row.checked_in_at = a.checkedInAt || null
   if (a.teamName !== undefined) row.team_name = a.teamName || null
   if (a.bib !== undefined) row.bib = a.bib || null
+  if (a.events !== undefined) row.events = a.events || null
   return row
 }

@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Athlete } from '@/types'
 import { categories } from '@/lib/categories'
+import { EventCheckboxes } from '@/components/EventCheckboxes'
 import { Plus, Pencil, Trash2, X, Save, AlertTriangle, Users, CheckCircle2, ClipboardList } from 'lucide-react'
 
 type Registration = {
@@ -28,7 +29,7 @@ const withCurrent = (opts: string[], cur?: string) => (cur && !opts.includes(cur
 
 type AthleteForm = Athlete
 const blankAthlete = (): AthleteForm => ({
-  id: '', name: '', country: '', category: 'Seniors', weightClass: '', gender: 'male', qrCode: '', checkedIn: false, teamName: '', bib: '',
+  id: '', name: '', country: '', category: 'Seniors', weightClass: '', gender: 'male', qrCode: '', checkedIn: false, teamName: '', bib: '', events: '',
 })
 
 export default function AdminPage() {
@@ -146,6 +147,13 @@ export default function AdminPage() {
                   </div>
                   <div><label className={labelCls}>Bib No.</label><input className={inputCls} value={athleteForm.bib || ''} onChange={e => setAF({ bib: e.target.value })} placeholder="101" /></div>
                 </div>
+                <div className="mt-5">
+                  <label className={labelCls}>Events</label>
+                  <EventCheckboxes
+                    value={(athleteForm.events || '').split(',').map(s => s.trim()).filter(Boolean)}
+                    onChange={arr => setAF({ events: arr.join(', ') })}
+                  />
+                </div>
                 <div className="flex gap-3 mt-5">
                   <button onClick={submitAthlete} disabled={submitting} className="inline-flex items-center gap-2 font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-5 py-2.5 hover:bg-[#ff1a3a] transition-colors disabled:opacity-50"><Save size={15} /> {submitting ? 'Saving…' : athleteForm.id ? 'Save Changes' : 'Create Athlete'}</button>
                   <button onClick={() => setAthleteForm(null)} className="font-condensed text-sm tracking-[3px] uppercase border border-white/20 text-white/70 px-5 py-2.5 hover:bg-white/5 transition-colors">Cancel</button>
@@ -161,7 +169,7 @@ export default function AdminPage() {
                   <thead>
                     <tr className="bg-[#111] text-left font-condensed text-[10px] tracking-[2px] uppercase text-[#C9A84C]">
                       <th className="px-4 py-3">Bib</th><th className="px-4 py-3">Name</th><th className="px-4 py-3 hidden sm:table-cell">Team</th>
-                      <th className="px-4 py-3">Category</th><th className="px-4 py-3">Weight</th><th className="px-4 py-3 hidden sm:table-cell">Status</th><th className="px-4 py-3 text-right">Actions</th>
+                      <th className="px-4 py-3">Category</th><th className="px-4 py-3">Weight</th><th className="px-4 py-3 hidden lg:table-cell">Events</th><th className="px-4 py-3 hidden sm:table-cell">Status</th><th className="px-4 py-3 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -172,6 +180,7 @@ export default function AdminPage() {
                         <td className="px-4 py-3 text-white/60 hidden sm:table-cell">{a.teamName || '—'}</td>
                         <td className="px-4 py-3 text-white/80">{a.category} <span className="text-white/40 text-xs uppercase">{a.gender}</span></td>
                         <td className="px-4 py-3"><span className="font-condensed text-xs tracking-widest uppercase bg-[#C8102E]/15 border border-[#C8102E]/30 text-[#C8102E] px-2 py-1">{a.weightClass || '—'}</span></td>
+                        <td className="px-4 py-3 hidden lg:table-cell text-xs text-white/55 max-w-[220px]">{a.events || '—'}</td>
                         <td className="px-4 py-3 hidden sm:table-cell">{a.checkedIn ? <span className="inline-flex items-center gap-1 text-[#22c55e] text-xs"><CheckCircle2 size={14} /> In</span> : <span className="text-white/30 text-xs">—</span>}</td>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2 justify-end">

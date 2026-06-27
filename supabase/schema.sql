@@ -16,8 +16,11 @@ create table if not exists public.athletes (
   checked_in_at timestamptz,
   team_name     text,
   bib           text,
+  events        text,
   created_at    timestamptz not null default now()
 );
+-- if the athletes table already exists, add the events column:
+alter table public.athletes add column if not exists events text;
 
 -- ---------- CHECK-IN LOG ----------
 create table if not exists public.checkins (

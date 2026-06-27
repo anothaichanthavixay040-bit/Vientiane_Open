@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { categories } from '@/lib/categories'
+import { EventCheckboxes } from '@/components/EventCheckboxes'
 import { CheckCircle2, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react'
 
 const catNames = categories.map(c => c.name)
@@ -23,6 +24,7 @@ const blank: Form = { name: '', gender: 'male', country: '', teamName: '', categ
 
 export default function RegisterPage() {
   const [form, setForm] = useState<Form>(blank)
+  const [events, setEvents] = useState<string[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState<string | null>(null) // registered athlete name
@@ -34,17 +36,19 @@ export default function RegisterPage() {
     e.preventDefault()
     if (!form.name.trim()) { setError('Please enter the athlete’s full name.'); return }
     if (!form.weightClass) { setError('Please select a weight class.'); return }
+    if (events.length === 0) { setError('Please select at least one event.'); return }
     setSubmitting(true); setError(null)
     try {
       const res = await fetch('/api/athletes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, events: events.join(', ') }),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) { setError(data.error || 'Registration failed. Please try again.'); return }
       setDone(form.name.trim())
       setForm(blank)
+      setEvents([])
     } catch {
       setError('Could not reach the server. Please try again.')
     } finally {
@@ -121,6 +125,12 @@ export default function RegisterPage() {
                     {weights.map(w => <option key={w} value={w}>{w}</option>)}
                   </select>
                 </div>
+              </div>
+
+              {/* Events */}
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <label className={labelCls}>Events <span className="text-[#C8102E]">*</span> <span className="text-white/30 normal-case tracking-normal">— select all you’re entering</span></label>
+                <EventCheckboxes value={events} onChange={setEvents} />
               </div>
 
               <button type="submit" disabled={submitting}
