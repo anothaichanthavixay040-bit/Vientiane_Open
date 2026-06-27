@@ -48,7 +48,7 @@ Athletes, matches and check-ins are stored in **Supabase** (PostgreSQL).
 1. **Create the tables + seed data** — open your Supabase project → **SQL Editor** → New query → paste the contents of [`supabase/schema.sql`](supabase/schema.sql) → **Run**.
 2. **Add your keys** — copy `.env.example` to `.env.local` and fill in:
    ```
-   SUPABASE_URL=https://kqkikfndytdzrfnearkd.supabase.co
+   SUPABASE_URL=https://vccjycjhbyuntkpssjgk.supabase.co
    SUPABASE_SECRET_KEY=sb_secret_...   (Project Settings → API Keys → Secret key)
    ```
    The **Secret key** (`sb_secret_…`) is privileged — it stays server-side and is never sent to the
