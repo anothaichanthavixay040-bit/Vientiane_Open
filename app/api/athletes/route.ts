@@ -32,9 +32,22 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    if (!body.name) return NextResponse.json({ error: 'name is required' }, { status: 400 })
+    const name = String(body.name ?? '').trim()
+    if (!name) return NextResponse.json({ error: 'name is required' }, { status: 400 })
     const supabase = getSupabase()
-    const row = athleteToRow(body)
+
+    // Block duplicate names (case-insensitive) — applies to public form and admin.
+    const { data: existing, error: dupErr } = await supabase
+      .from('athletes')
+      .select('id')
+      .ilike('name', name)
+      .limit(1)
+    if (dupErr) throw dupErr
+    if (existing && existing.length) {
+      return NextResponse.json({ error: `An athlete named “${name}” is already registered.` }, { status: 409 })
+    }
+
+    const row = athleteToRow({ ...body, name })
     // Default the QR code to the athlete id by inserting first, then patching if absent.
     const { data, error } = await supabase.from('athletes').insert(row).select('*').single()
     if (error) throw error

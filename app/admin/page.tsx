@@ -145,7 +145,6 @@ export default function AdminPage() {
                       {withCurrent(weightsFor(athleteForm.category, athleteForm.gender), athleteForm.weightClass).map(w => <option key={w} value={w}>{w}</option>)}
                     </select>
                   </div>
-                  <div><label className={labelCls}>Bib No.</label><input className={inputCls} value={athleteForm.bib || ''} onChange={e => setAF({ bib: e.target.value })} placeholder="101" /></div>
                 </div>
                 <div className="mt-5">
                   <label className={labelCls}>Events</label>
@@ -168,14 +167,13 @@ export default function AdminPage() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-[#111] text-left font-condensed text-[10px] tracking-[2px] uppercase text-[#C9A84C]">
-                      <th className="px-4 py-3">Bib</th><th className="px-4 py-3">Name</th><th className="px-4 py-3 hidden sm:table-cell">Team</th>
+                      <th className="px-4 py-3">Name</th><th className="px-4 py-3 hidden sm:table-cell">Team</th>
                       <th className="px-4 py-3">Category</th><th className="px-4 py-3">Weight</th><th className="px-4 py-3 hidden lg:table-cell">Events</th><th className="px-4 py-3 hidden sm:table-cell">Status</th><th className="px-4 py-3 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {athletes.map(a => (
                       <tr key={a.id} className="border-t border-white/5 hover:bg-white/[0.02]">
-                        <td className="px-4 py-3 font-bebas text-lg text-[#C9A84C]">{a.bib || '—'}</td>
                         <td className="px-4 py-3 text-white">{a.name} <span className="text-white/30 text-xs">{a.country}</span></td>
                         <td className="px-4 py-3 text-white/60 hidden sm:table-cell">{a.teamName || '—'}</td>
                         <td className="px-4 py-3 text-white/80">{a.category} <span className="text-white/40 text-xs uppercase">{a.gender}</span></td>
