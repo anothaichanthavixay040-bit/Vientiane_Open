@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { categories } from '@/lib/categories'
-import { EventCheckboxes } from '@/components/EventCheckboxes'
 import { CheckCircle2, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react'
 
 const catNames = categories.map(c => c.name)
@@ -18,37 +17,36 @@ function weightsFor(catName: string, gender: string): string[] {
 
 type Form = {
   name: string; gender: 'male' | 'female'; country: string; teamName: string;
-  category: string; weightClass: string
+  category: string; event: 'Kumite' | 'Kata'; weightClass: string
 }
-const blank: Form = { name: '', gender: 'male', country: '', teamName: '', category: 'Seniors', weightClass: '' }
+const blank: Form = { name: '', gender: 'male', country: '', teamName: '', category: 'Seniors', event: 'Kumite', weightClass: '' }
 
 export default function RegisterPage() {
   const [form, setForm] = useState<Form>(blank)
-  const [events, setEvents] = useState<string[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState<string | null>(null) // registered athlete name
 
   const set = (patch: Partial<Form>) => setForm(f => ({ ...f, ...patch }))
+  const isKumite = form.event === 'Kumite'
   const weights = weightsFor(form.category, form.gender)
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name.trim()) { setError('Please enter the athlete’s full name.'); return }
-    if (!form.weightClass) { setError('Please select a weight class.'); return }
-    if (events.length === 0) { setError('Please select at least one event.'); return }
+    if (isKumite && !form.weightClass) { setError('Please select a weight class.'); return }
     setSubmitting(true); setError(null)
     try {
       const res = await fetch('/api/athletes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, events: events.join(', ') }),
+        // Kata has no weight class — send it empty.
+        body: JSON.stringify({ ...form, weightClass: isKumite ? form.weightClass : '', events: form.event }),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) { setError(data.error || 'Registration failed. Please try again.'); return }
       setDone(form.name.trim())
       setForm(blank)
-      setEvents([])
     } catch {
       setError('Could not reach the server. Please try again.')
     } finally {
@@ -119,18 +117,27 @@ export default function RegisterPage() {
                   </select>
                 </div>
                 <div>
-                  <label className={labelCls}>Weight Class <span className="text-[#C8102E]">*</span></label>
-                  <select className={inputCls} value={form.weightClass} onChange={e => set({ weightClass: e.target.value })} required>
-                    <option value="">Select weight…</option>
-                    {weights.map(w => <option key={w} value={w}>{w}</option>)}
+                  <label className={labelCls}>Event <span className="text-[#C8102E]">*</span></label>
+                  <select className={inputCls} value={form.event} onChange={e => set({ event: e.target.value as Form['event'], weightClass: '' })}>
+                    <option value="Kumite">Kumite</option>
+                    <option value="Kata">Kata</option>
                   </select>
                 </div>
-              </div>
 
-              {/* Events */}
-              <div className="mt-6 pt-6 border-t border-white/10">
-                <label className={labelCls}>Events <span className="text-[#C8102E]">*</span> <span className="text-white/30 normal-case tracking-normal">— select all you’re entering</span></label>
-                <EventCheckboxes value={events} onChange={setEvents} />
+                {/* Weight class only applies to Kumite */}
+                {isKumite ? (
+                  <div className="sm:col-span-2">
+                    <label className={labelCls}>Weight Class <span className="text-[#C8102E]">*</span></label>
+                    <select className={inputCls} value={form.weightClass} onChange={e => set({ weightClass: e.target.value })} required>
+                      <option value="">Select weight…</option>
+                      {weights.map(w => <option key={w} value={w}>{w}</option>)}
+                    </select>
+                  </div>
+                ) : (
+                  <div className="sm:col-span-2 flex items-center gap-2 text-xs text-white/40 bg-[#1a1a1a] border border-white/5 px-4 py-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" /> Kata has no weight class — no weight selection needed.
+                  </div>
+                )}
               </div>
 
               <button type="submit" disabled={submitting}
