@@ -6,25 +6,26 @@ const registerLinks = [
   { label: 'Athlete Register', sub: 'Register online — saved to our database', href: '/register', Icon: Swords },
   { label: 'Team Officials', sub: 'Delegates, coaches & officials ', href: '/register/official', Icon: ClipboardList },
   { label: 'Referee Register', sub: 'WKF/AKF/National certified', href: '/register/referee', Icon: Scale },
-  { label: 'Hotel Booking', sub: 'Official HQ hotel · Book by 30 Apr', href: '/register/hotel', Icon: Hotel },
+  { label: 'Hotel Booking', sub: 'Official HQ hotel · Book by 1 Aug', href: '/register/hotel', Icon: Hotel },
 ]
 
 const schedule = [
-  { date: '15 May, 2026', time: '10:00–17:00', activity: 'Arrival, Registration & Accreditation', place: '1st Floor, Vientiane Center Mall' },
-  { date: '15 May, 2026', time: '17:00–18:00', activity: 'Weigh-In — All Categories', place: 'Vientiane Center Mall' },
-  { date: '15 May, 2026', time: '18:00–19:00', activity: 'Coach Meeting & Drawing of Lots', place: 'Vientiane Center Mall' },
-  { date: '16–17 May, 2026', time: 'TBA', activity: 'Competition Days', place: '1st Floor, Vientiane Center Mall' },
+  { date: '28 Aug, 2026', time: '10:00–17:00', activity: 'Arrival, Registration & Accreditation', place: '1st Floor, Vientiane Center Mall' },
+  { date: '28 Aug, 2026', time: '17:00–18:00', activity: 'Weigh-In — All Categories', place: 'Vientiane Center Mall' },
+  { date: '28 Aug, 2026', time: '18:00–19:00', activity: 'Coach Meeting & Drawing of Lots', place: 'Vientiane Center Mall' },
+  { date: '29–30 Aug, 2026', time: 'TBA', activity: 'Competition Days', place: '1st Floor, Vientiane Center Mall' },
 ]
 
 const categories = [
-  { name: 'Seniors', age: '18+', female: ['-50kg','-55kg','-61kg','-68kg','+68kg'], male: ['-60kg','-67kg','-75kg','-84kg','+84kg'], extras: ['Kata','Team Kata','Team Kumite'], bout: '3:00 min' },
+  { name: 'Seniors', age: '18 & older', female: ['-50kg','-55kg','-61kg','-68kg','+68kg'], male: ['-55kg','-60kg','-67kg','-75kg','-84kg','+84kg'], extras: ['Kata','Team Kata','Team Kumite'], bout: '3:00 min' },
   { name: 'Under 21', age: '18–20', female: ['-50kg','-55kg','-61kg','-68kg','+68kg'], male: ['-55kg','-60kg','-67kg','-75kg','-84kg','+84kg'], extras: ['Kata'], bout: '3:00 min' },
-  { name: 'Juniors', age: '16–17', female: ['-48kg','-53kg','-59kg','+59kg'], male: ['-55kg','-61kg','-68kg','-76kg','+76kg'], extras: ['Kata','Team Kata'], bout: '2:00 min' },
+  { name: 'Juniors', age: '16–17', female: ['-48kg','-53kg','-59kg','+59kg'], male: ['-55kg','-61kg','-68kg','-76kg','+76kg'], extras: ['Kata','Team Kata','Team Kumite (3, may mix Cadet)'], bout: '2:00 min' },
   { name: 'Cadets', age: '14–15', female: ['-47kg','-54kg','-61kg','+61kg'], male: ['-52kg','-57kg','-63kg','-70kg','+70kg'], extras: ['Kata','Team Kata'], bout: '2:00 min' },
   { name: 'Under 14', age: '12–13', female: ['-42kg','-47kg','-52kg','+52kg'], male: ['-45kg','-50kg','-55kg','+55kg'], extras: ['Kata','Team Kata'], bout: '1:30 min' },
   { name: 'Under 12', age: '10–11', female: ['-30kg','-35kg','-40kg','-44kg','+44kg'], male: ['-30kg','-35kg','-40kg','-45kg','+45kg'], extras: ['Kata','Team Kata (Mixed)'], bout: '1:30 min' },
   { name: 'Under 10', age: '8–9', female: ['-25kg','-30kg','-35kg','-40kg','+40kg'], male: ['-25kg','-30kg','-35kg','-40kg','+40kg'], extras: ['Kata','Team Kata (Mixed)'], bout: '1:00 min' },
-  { name: 'Under 8', age: '7 & under', female: ['-25kg','-30kg','-35kg','-40kg','+40kg'], male: ['-25kg','-30kg','-35kg','-40kg','+40kg'], extras: ['Kata','Team Kata (Mixed)'], bout: '1:00 min' },
+  { name: 'Under 8', age: '6–7', female: ['-25kg','-30kg','-35kg','-40kg','+40kg'], male: ['-25kg','-30kg','-35kg','-40kg','+40kg'], extras: ['Kata','Team Kata (Mixed)'], bout: '1:00 min' },
+  { name: 'U6', age: '5 & under', female: ['-20kg','-30kg','+30kg'], male: ['-20kg','-30kg','+30kg'], extras: ['Kata'], bout: '1:00 min' },
 ]
 
 export default function EventsPage() {
@@ -50,9 +51,9 @@ export default function EventsPage() {
                 <div className="font-bebas text-2xl sm:text-3xl lg:text-4xl text-white tracking-widest mb-3">VIENTIANE OPEN KARATE CHAMPIONSHIP 2026</div>
                 <div className="flex flex-wrap gap-4 sm:gap-6">
                   {[
-                    { icon: <Calendar size={14}/>, val: '16–17 May, 2026' },
+                    { icon: <Calendar size={14}/>, val: '29–30 August, 2026' },
                     { icon: <MapPin size={14}/>, val: 'Vientiane Center Mall, Laos' },
-                    { icon: <Clock size={14}/>, val: 'Registration closes: 30 April, 2026' },
+                    { icon: <Clock size={14}/>, val: 'Registration closes: 1 August, 2026' },
                   ].map(m => (
                     <span key={m.val} className="flex items-center gap-1.5 font-condensed text-xs sm:text-sm text-white/60">
                       <span className="text-[#C9A84C]">{m.icon}</span>{m.val}
@@ -70,8 +71,8 @@ export default function EventsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-8">
             {[
               // { label: 'Rules', val: 'WKF / AKF', note: 'Latest competition rules apply' },
-              { label: 'Categories', val: 'U8 to Senior', note: '8 age groups · Kata & Kumite' },
-              { label: 'Age Reference', val: '16 May, 2026', note: 'Age calculated on first day' },
+              { label: 'Categories', val: 'U6 to Senior', note: '9 age groups · Kata & Kumite' },
+              { label: 'Age Reference', val: '29 August, 2026', note: 'Age calculated on first day' },
             ].map(b => (
               <div key={b.label} className="bg-[#1a1a1a] border border-[#C9A84C]/8 p-5">
                 <div className="font-condensed text-[10px] tracking-[3px] text-[#C9A84C] uppercase mb-1">{b.label}</div>
@@ -212,7 +213,7 @@ export default function EventsPage() {
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-white/30 mt-3">★ Rates include breakfast · Must be reserved via OC before 30 April, 2026</p>
+                <p className="text-xs text-white/30 mt-3">★ Rates include breakfast · Must be reserved via OC before 1 August, 2026</p>
               </div>
               <div className="flex-shrink-0">
                 <a href="/register/hotel" target="_blank" rel="noopener noreferrer"
@@ -225,8 +226,8 @@ export default function EventsPage() {
 
           {/* Payment info */}
           <div className="mt-4 bg-[#1a1a1a] border border-white/5 p-5 text-xs text-white/40 leading-relaxed">
-            <span className="font-condensed tracking-[2px] uppercase text-white/60 mr-2">Payment:</span>
-            All entry fees payable upon onsite registration (30 April, 2026). Bank: ST Bank LTD (STB) · Beneficiary: Vientiane Karate Federation · Acct: 0010120006230 · Swift: STBDLALA. All bank charges borne by payer.
+            <span className="font-condensed tracking-[2px] uppercase text-white/60 mr-2">Fees &amp; Payment:</span>
+            Individual event USD 15 / athlete / category · Team event USD 30 / team / category. All entry fees payable to the Organizing Committee upon onsite registration (28 August, 2026). Bank: ST Bank LTD (STB) · Beneficiary: Vientiane Karate Federation · Acct: 0010120006230 · Swift: STBDLALA. All bank charges borne by payer.
           </div>
         </div>
       </section>

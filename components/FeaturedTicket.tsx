@@ -8,7 +8,7 @@ const ATHLETE_FORM = '/register'
 
 const facts = [
   { icon: <Calendar size={16} />, label: 'Date', val: '29–30 August, 2026' },
-  { icon: <MapPin size={16} />, label: 'Venue', val: 'Vientiane, Laos' },
+  { icon: <MapPin size={16} />, label: 'Venue', val: 'Vientiane Center Mall, Laos' },
   { icon: <Clock size={16} />, label: 'Registration', val: 'Open Now' },
   { icon: <Award size={16} />, label: 'Awards', val: 'Medals & E-Certificates for Top 4' },
 ]
@@ -170,7 +170,7 @@ export default function FeaturedTicket() {
                 {/* about */}
                 <p className="text-sm text-white/65 leading-relaxed mb-5">
                   The Vientiane Open Karate Championships 2026 brings together athletes from across Laos and the region for two days of
-                  Kata and Kumite competition. Open to every age group from Under&nbsp;8 to Senior, Male and Female, under official
+                  Kata and Kumite competition. Open to every age group from Under&nbsp;6 to Senior, Male and Female, under official
                   WKF&nbsp;/&nbsp;AKF competition rules. Register your athletes, team, officials and referees below.
                 </p>
 
@@ -181,7 +181,7 @@ export default function FeaturedTicket() {
                     {categories.map(c => (
                       <span key={c} className="font-condensed text-[10px] tracking-[2px] uppercase bg-[#C8102E]/15 border border-[#C8102E]/30 text-[#C8102E] px-2.5 py-1">{c}</span>
                     ))}
-                    <span className="font-condensed text-[10px] tracking-[2px] uppercase bg-[#C9A84C]/15 border border-[#C9A84C]/30 text-[#C9A84C] px-2.5 py-1">8 Age Groups · U8 → Senior</span>
+                    <span className="font-condensed text-[10px] tracking-[2px] uppercase bg-[#C9A84C]/15 border border-[#C9A84C]/30 text-[#C9A84C] px-2.5 py-1">9 Age Groups · U6 → Senior</span>
                   </div>
                 </div>
 

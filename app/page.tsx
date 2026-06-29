@@ -3,7 +3,7 @@ import FeaturedTicket from '@/components/FeaturedTicket'
 
 const stats = [
   { num: '2026', label: 'Championship Year' },
-  { num: '6+', label: 'Age Categories' },
+  { num: '9', label: 'Age Categories' },
   { num: 'REWARD', label: 'MEDAL & E-CERTIFICATE' },
   { num: '29-30', label: 'August, Vientiane' },
 ]

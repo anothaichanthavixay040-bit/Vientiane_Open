@@ -41,9 +41,9 @@ export default function Footer() {
           <div>
             <div className="font-condensed text-xs tracking-widest uppercase text-[#C9A84C] mb-4">Contact</div>
             <ul className="space-y-3">
-              <li><a href="mailto:chansouda.p@nuol.edu.la" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><Mail size={14}/> chansouda.p@nuol.edu.la</a></li>
-              <li><a href="tel:+85620888998877" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><Phone size={14}/> +856 20 88899887</a></li>
-              <li><a href="https://wa.me/85620224377711" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><MessageCircle size={14}/> +856 20 22437711</a></li>
+              <li><a href="mailto:vientianekaratefederation@gmail.com" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><Mail size={14}/> vientianekaratefederation@gmail.com</a></li>
+              <li><a href="tel:+8562088899887" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><Phone size={14}/> +856 20 88899887</a></li>
+              <li><a href="https://wa.me/8562022437711" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><MessageCircle size={14}/> +856 20 22437711</a></li>
               <li><a href="https://facebook.com/Vientianekarate" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-white/60 hover:text-[#C9A84C] transition-colors"><FacebookIcon size={14}/> Vientiane Karate-Do Federation</a></li>
             </ul>
           </div>

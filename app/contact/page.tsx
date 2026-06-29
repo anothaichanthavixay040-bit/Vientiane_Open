@@ -27,9 +27,9 @@ export default function ContactPage() {
             <div className="divide-y divide-white/5">
               {[
                 { icon: <User size={16}/>, label: 'Organizer', val: 'Ms. Chansouda Phetsiriseng', link: undefined },
-                { icon: <Mail size={16}/>, label: 'Email', val: 'chansouda.p@nuol.edu.la', link: 'mailto:chansouda.p@nuol.edu.la' },
-                { icon: <Phone size={16}/>, label: 'Phone', val: '+856 20 88899887', link: 'tel:+85620888998877' },
-                { icon: <MessageCircle size={16}/>, label: 'WhatsApp', val: '+856 20 22437711', link: 'https://wa.me/85620224377711' },
+                { icon: <Mail size={16}/>, label: 'Email', val: 'vientianekaratefederation@gmail.com', link: 'mailto:vientianekaratefederation@gmail.com' },
+                { icon: <Phone size={16}/>, label: 'Phone', val: '+856 20 88899887', link: 'tel:+8562088899887' },
+                { icon: <MessageCircle size={16}/>, label: 'WhatsApp', val: '+856 20 22437711', link: 'https://wa.me/8562022437711' },
                 { icon: <FacebookIcon size={16}/>, label: 'Facebook', val: 'Vientiane Karate-Do Federation', link: 'https://facebook.com' },
                 { icon: <MapPin size={16}/>, label: 'Venue', val: 'Vientiane Center Mall, Vientiane Capital, Laos', link: undefined },
               ].map(item => (
@@ -63,8 +63,8 @@ export default function ContactPage() {
               <div className="font-condensed text-xs tracking-[4px] uppercase text-[#C9A84C] mb-3">Send Us a Message</div>
               <p className="text-sm text-white/50 leading-relaxed mb-4">Contact Ms. Chansouda directly via email or WhatsApp for any enquiries about the championship.</p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <a href="mailto:chansouda.p@nuol.edu.la" className="flex-1 font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-5 py-3 hover:bg-[#ff1a3a] transition-colors text-center" style={{clipPath:'polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)'}}>Email Now</a>
-                <a href="https://wa.me/85620224377711" target="_blank" rel="noopener noreferrer" className="flex-1 font-condensed text-sm tracking-[3px] uppercase border border-[#C9A84C] text-[#C9A84C] px-5 py-3 hover:bg-[#C9A84C]/10 transition-colors text-center" style={{clipPath:'polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)'}}>WhatsApp</a>
+                <a href="mailto:vientianekaratefederation@gmail.com" className="flex-1 font-condensed text-sm tracking-[3px] uppercase bg-[#C8102E] text-white px-5 py-3 hover:bg-[#ff1a3a] transition-colors text-center" style={{clipPath:'polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)'}}>Email Now</a>
+                <a href="https://wa.me/8562022437711" target="_blank" rel="noopener noreferrer" className="flex-1 font-condensed text-sm tracking-[3px] uppercase border border-[#C9A84C] text-[#C9A84C] px-5 py-3 hover:bg-[#C9A84C]/10 transition-colors text-center" style={{clipPath:'polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)'}}>WhatsApp</a>
               </div>
             </div>
           </div>

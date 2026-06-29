@@ -1,10 +1,12 @@
 import { Category } from '@/types'
 
+// Categories & weight classes — per the official Bulletin V2
+// (Vientiane Open Karate Championships 2026).
 export const categories: Category[] = [
   {
-    name: 'Seniors', ageRange: '18+',
+    name: 'Seniors', ageRange: '18 & older',
     femaleWeights: ['-50kg','-55kg','-61kg','-68kg','+68kg'],
-    maleWeights: ['-60kg','-67kg','-75kg','-84kg','+84kg'],
+    maleWeights: ['-55kg','-60kg','-67kg','-75kg','-84kg','+84kg'],
     hasTeamKata: true, hasTeamKumite: true, boutDuration: '3:00 min'
   },
   {
@@ -17,7 +19,7 @@ export const categories: Category[] = [
     name: 'Juniors', ageRange: '16–17',
     femaleWeights: ['-48kg','-53kg','-59kg','+59kg'],
     maleWeights: ['-55kg','-61kg','-68kg','-76kg','+76kg'],
-    hasTeamKata: true, boutDuration: '2:00 min'
+    hasTeamKata: true, hasTeamKumite: true, boutDuration: '2:00 min'
   },
   {
     name: 'Cadets', ageRange: '14–15',
@@ -44,9 +46,15 @@ export const categories: Category[] = [
     hasTeamKata: true, boutDuration: '1:00 min'
   },
   {
-    name: 'Under 8', ageRange: '7 & under',
+    name: 'Under 8', ageRange: '6–7',
     femaleWeights: ['-25kg','-30kg','-35kg','-40kg','+40kg'],
     maleWeights: ['-25kg','-30kg','-35kg','-40kg','+40kg'],
     hasTeamKata: true, boutDuration: '1:00 min'
+  },
+  {
+    name: 'U6', ageRange: '5 & under',
+    femaleWeights: ['-20kg','-30kg','+30kg'],
+    maleWeights: ['-20kg','-30kg','+30kg'],
+    hasTeamKata: false, boutDuration: '1:00 min'
   },
 ]
