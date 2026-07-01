@@ -16,10 +16,11 @@ function weightsFor(catName: string, gender: string): string[] {
 }
 
 type Form = {
-  name: string; gender: 'male' | 'female'; country: string; teamName: string;
+  name: string; gender: 'male' | 'female'; dateOfBirth: string; passportNo: string;
+  country: string; teamName: string;
   category: string; event: 'Kumite' | 'Kata'; weightClass: string
 }
-const blank: Form = { name: '', gender: 'male', country: '', teamName: '', category: 'Seniors', event: 'Kumite', weightClass: '' }
+const blank: Form = { name: '', gender: 'male', dateOfBirth: '', passportNo: '', country: '', teamName: '', category: 'Seniors', event: 'Kumite', weightClass: '' }
 
 export default function RegisterPage() {
   const [form, setForm] = useState<Form>(blank)
@@ -34,6 +35,7 @@ export default function RegisterPage() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name.trim()) { setError('Please enter the athlete’s full name.'); return }
+    if (!form.dateOfBirth) { setError('Please enter the date of birth.'); return }
     if (isKumite && !form.weightClass) { setError('Please select a weight class.'); return }
     setSubmitting(true); setError(null)
     try {
@@ -93,8 +95,16 @@ export default function RegisterPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="sm:col-span-2">
-                  <label className={labelCls}>Full Name <span className="text-[#C8102E]">*</span></label>
+                  <label className={labelCls}>Full Name <span className="text-[#C8102E]">*</span> <span className="text-white/30 normal-case tracking-normal">— as in passport</span></label>
                   <input className={inputCls} value={form.name} onChange={e => set({ name: e.target.value })} placeholder="e.g. Somchai Phommavong" required />
+                </div>
+                <div>
+                  <label className={labelCls}>Date of Birth <span className="text-[#C8102E]">*</span></label>
+                  <input type="date" className={inputCls} style={{ colorScheme: 'dark' }} value={form.dateOfBirth} onChange={e => set({ dateOfBirth: e.target.value })} max="2026-08-29" required />
+                </div>
+                <div>
+                  <label className={labelCls}>Passport / ID No.</label>
+                  <input className={inputCls} value={form.passportNo} onChange={e => set({ passportNo: e.target.value })} placeholder="Passport or national ID" />
                 </div>
                 <div>
                   <label className={labelCls}>Gender <span className="text-[#C8102E]">*</span></label>

@@ -29,7 +29,7 @@ const withCurrent = (opts: string[], cur?: string) => (cur && !opts.includes(cur
 
 type AthleteForm = Athlete
 const blankAthlete = (): AthleteForm => ({
-  id: '', name: '', country: '', category: 'Seniors', weightClass: '', gender: 'male', qrCode: '', checkedIn: false, teamName: '', bib: '', events: '',
+  id: '', name: '', country: '', category: 'Seniors', weightClass: '', gender: 'male', qrCode: '', checkedIn: false, teamName: '', bib: '', events: '', dateOfBirth: '', passportNo: '',
 })
 
 export default function AdminPage() {
@@ -129,6 +129,8 @@ export default function AdminPage() {
                   <div><label className={labelCls}>Full Name</label><input className={inputCls} value={athleteForm.name} onChange={e => setAF({ name: e.target.value })} placeholder="Athlete name" /></div>
                   <div><label className={labelCls}>Team</label><input className={inputCls} value={athleteForm.teamName || ''} onChange={e => setAF({ teamName: e.target.value })} placeholder="Club / team" /></div>
                   <div><label className={labelCls}>Country</label><input className={inputCls} value={athleteForm.country} onChange={e => setAF({ country: e.target.value })} placeholder="LAO" /></div>
+                  <div><label className={labelCls}>Date of Birth</label><input type="date" className={inputCls} style={{ colorScheme: 'dark' }} value={athleteForm.dateOfBirth || ''} onChange={e => setAF({ dateOfBirth: e.target.value })} /></div>
+                  <div><label className={labelCls}>Passport / ID No.</label><input className={inputCls} value={athleteForm.passportNo || ''} onChange={e => setAF({ passportNo: e.target.value })} placeholder="Passport / ID" /></div>
                   <div><label className={labelCls}>Category</label>
                     <select className={inputCls} value={athleteForm.category} onChange={e => setAF({ category: e.target.value, weightClass: '' })}>
                       {withCurrent(catNames, athleteForm.category).map(c => <option key={c} value={c}>{c}</option>)}
@@ -168,6 +170,7 @@ export default function AdminPage() {
                   <thead>
                     <tr className="bg-[#111] text-left font-condensed text-[10px] tracking-[2px] uppercase text-[#C9A84C]">
                       <th className="px-4 py-3">Name</th><th className="px-4 py-3 hidden sm:table-cell">Team</th>
+                      <th className="px-4 py-3 hidden md:table-cell">DOB</th><th className="px-4 py-3 hidden md:table-cell">Passport</th>
                       <th className="px-4 py-3">Category</th><th className="px-4 py-3">Weight</th><th className="px-4 py-3 hidden lg:table-cell">Events</th><th className="px-4 py-3 hidden sm:table-cell">Status</th><th className="px-4 py-3 text-right">Actions</th>
                     </tr>
                   </thead>
@@ -176,6 +179,8 @@ export default function AdminPage() {
                       <tr key={a.id} className="border-t border-white/5 hover:bg-white/[0.02]">
                         <td className="px-4 py-3 text-white">{a.name} <span className="text-white/30 text-xs">{a.country}</span></td>
                         <td className="px-4 py-3 text-white/60 hidden sm:table-cell">{a.teamName || '—'}</td>
+                        <td className="px-4 py-3 text-white/60 hidden md:table-cell text-xs whitespace-nowrap">{a.dateOfBirth || '—'}</td>
+                        <td className="px-4 py-3 text-white/60 hidden md:table-cell text-xs">{a.passportNo || '—'}</td>
                         <td className="px-4 py-3 text-white/80">{a.category} <span className="text-white/40 text-xs uppercase">{a.gender}</span></td>
                         <td className="px-4 py-3"><span className="font-condensed text-xs tracking-widest uppercase bg-[#C8102E]/15 border border-[#C8102E]/30 text-[#C8102E] px-2 py-1">{a.weightClass || '—'}</span></td>
                         <td className="px-4 py-3 hidden lg:table-cell text-xs text-white/55 max-w-[220px]">{a.events || '—'}</td>

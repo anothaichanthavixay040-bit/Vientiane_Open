@@ -11,6 +11,8 @@ export interface Athlete {
   teamName?: string
   bib: string
   events?: string
+  dateOfBirth?: string
+  passportNo?: string
 }
 
 export interface CheckInEvent {

@@ -34,6 +34,8 @@ type AthleteRow = {
   team_name: string | null
   bib: string | null
   events: string | null
+  date_of_birth: string | null
+  passport_no: string | null
 }
 
 export function rowToAthlete(r: AthleteRow): Athlete {
@@ -50,6 +52,8 @@ export function rowToAthlete(r: AthleteRow): Athlete {
     teamName: r.team_name ?? undefined,
     bib: r.bib ?? '',
     events: r.events ?? undefined,
+    dateOfBirth: r.date_of_birth ?? undefined,
+    passportNo: r.passport_no ?? undefined,
   }
 }
 
@@ -66,5 +70,7 @@ export function athleteToRow(a: Partial<Athlete>): Record<string, unknown> {
   if (a.teamName !== undefined) row.team_name = a.teamName || null
   if (a.bib !== undefined) row.bib = a.bib || null
   if (a.events !== undefined) row.events = a.events || null
+  if (a.dateOfBirth !== undefined) row.date_of_birth = a.dateOfBirth || null
+  if (a.passportNo !== undefined) row.passport_no = a.passportNo || null
   return row
 }

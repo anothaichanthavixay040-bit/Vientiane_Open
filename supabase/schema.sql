@@ -17,10 +17,14 @@ create table if not exists public.athletes (
   team_name     text,
   bib           text,
   events        text,
+  date_of_birth date,
+  passport_no   text,
   created_at    timestamptz not null default now()
 );
--- if the athletes table already exists, add the events column:
-alter table public.athletes add column if not exists events text;
+-- if the athletes table already exists, add the newer columns:
+alter table public.athletes add column if not exists events        text;
+alter table public.athletes add column if not exists date_of_birth date;
+alter table public.athletes add column if not exists passport_no   text;
 
 -- ---------- CHECK-IN LOG ----------
 create table if not exists public.checkins (
