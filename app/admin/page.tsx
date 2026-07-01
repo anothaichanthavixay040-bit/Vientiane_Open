@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Athlete } from '@/types'
 import { categories } from '@/lib/categories'
 import { EventCheckboxes } from '@/components/EventCheckboxes'
-import { Plus, Pencil, Trash2, X, Save, AlertTriangle, Users, CheckCircle2, ClipboardList } from 'lucide-react'
+import { Plus, Pencil, Trash2, X, Save, AlertTriangle, Users, CheckCircle2, ClipboardList, Search } from 'lucide-react'
 
 type Registration = {
   id: string; type: string; name: string; email?: string; phone?: string;
@@ -40,6 +40,16 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null)
   const [athleteForm, setAthleteForm] = useState<AthleteForm | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [query, setQuery] = useState('')
+
+  const q = query.trim().toLowerCase()
+  const has = (v: unknown) => String(v ?? '').toLowerCase().includes(q)
+  const filteredAthletes = q
+    ? athletes.filter(a => [a.name, a.teamName, a.country, a.category, a.weightClass, a.gender, a.passportNo, a.dateOfBirth, a.events, a.bib].some(has))
+    : athletes
+  const filteredRegistrations = q
+    ? registrations.filter(r => [r.name, r.type, r.organization, r.role, r.email, r.phone, r.country, r.notes].some(has))
+    : registrations
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -98,6 +108,22 @@ export default function AdminPage() {
             </button>
           ))}
         </div>
+
+        {/* Search */}
+        {!loading && (
+          <div className="relative mb-6 max-w-md">
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C9A84C]/70 pointer-events-none" />
+            <input
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder={tab === 'athletes' ? 'Search athletes — name, team, country, passport…' : 'Search registrations — name, type, org, email…'}
+              className="w-full bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm pl-9 pr-9 py-2.5 focus:outline-none focus:border-[#C8102E] transition-colors"
+            />
+            {query && (
+              <button onClick={() => setQuery('')} aria-label="Clear search" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white"><X size={15} /></button>
+            )}
+          </div>
+        )}
 
         {error && (
           <div className="flex items-start gap-3 bg-[#C8102E]/10 border border-[#C8102E]/40 text-white px-4 py-3 mb-6">
@@ -164,6 +190,8 @@ export default function AdminPage() {
 
             {athletes.length === 0 && !error ? (
               <div className="text-center text-white/40 font-condensed tracking-widest py-16">No athletes yet. Click “New Athlete”.</div>
+            ) : filteredAthletes.length === 0 ? (
+              <div className="text-center text-white/40 font-condensed tracking-widest py-16">No athletes match “{query}”.</div>
             ) : (
               <div className="overflow-x-auto border border-[#C9A84C]/10">
                 <table className="w-full text-sm">
@@ -175,7 +203,7 @@ export default function AdminPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {athletes.map(a => (
+                    {filteredAthletes.map(a => (
                       <tr key={a.id} className="border-t border-white/5 hover:bg-white/[0.02]">
                         <td className="px-4 py-3 text-white">{a.name} <span className="text-white/30 text-xs">{a.country}</span></td>
                         <td className="px-4 py-3 text-white/60 hidden sm:table-cell">{a.teamName || '—'}</td>
@@ -206,6 +234,8 @@ export default function AdminPage() {
             <p className="text-sm text-white/40 font-condensed mb-5">Team, officials, referee and hotel submissions from the public registration forms.</p>
             {registrations.length === 0 && !error ? (
               <div className="text-center text-white/40 font-condensed tracking-widest py-16">No registrations yet.</div>
+            ) : filteredRegistrations.length === 0 ? (
+              <div className="text-center text-white/40 font-condensed tracking-widest py-16">No registrations match “{query}”.</div>
             ) : (
               <div className="overflow-x-auto border border-[#C9A84C]/10">
                 <table className="w-full text-sm">
@@ -216,7 +246,7 @@ export default function AdminPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {registrations.map(r => (
+                    {filteredRegistrations.map(r => (
                       <tr key={r.id} className="border-t border-white/5 hover:bg-white/[0.02] align-top">
                         <td className="px-4 py-3"><span className="font-condensed text-[10px] tracking-widest uppercase bg-[#C9A84C]/15 border border-[#C9A84C]/30 text-[#C9A84C] px-2 py-1">{r.type}</span></td>
                         <td className="px-4 py-3 text-white">{r.name}{r.country ? <span className="text-white/30 text-xs"> · {r.country}</span> : null}{r.quantity ? <span className="text-white/40 text-xs"> · ×{r.quantity}</span> : null}</td>
