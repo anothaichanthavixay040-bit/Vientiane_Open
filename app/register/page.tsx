@@ -1,8 +1,10 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { categories } from '@/lib/categories'
 import { CheckCircle2, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react'
+
+type Team = { id: string; name: string }
 
 const catNames = categories.map(c => c.name)
 const inputCls = 'w-full bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm px-4 py-3 focus:outline-none focus:border-[#C8102E] transition-colors'
@@ -17,16 +19,21 @@ function weightsFor(catName: string, gender: string): string[] {
 
 type Form = {
   name: string; gender: 'male' | 'female'; dateOfBirth: string; passportNo: string;
-  country: string; teamName: string;
+  country: string; teamRegistrationId: string;
   category: string; event: 'Kumite' | 'Kata'; weightClass: string
 }
-const blank: Form = { name: '', gender: 'male', dateOfBirth: '', passportNo: '', country: '', teamName: '', category: 'Seniors', event: 'Kumite', weightClass: '' }
+const blank: Form = { name: '', gender: 'male', dateOfBirth: '', passportNo: '', country: '', teamRegistrationId: '', category: 'Seniors', event: 'Kumite', weightClass: '' }
 
 export default function RegisterPage() {
   const [form, setForm] = useState<Form>(blank)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState<string | null>(null) // registered athlete name
+  const [teams, setTeams] = useState<Team[]>([])
+
+  useEffect(() => {
+    fetch('/api/teams').then(r => r.json()).then(d => { if (Array.isArray(d)) setTeams(d) }).catch(() => {})
+  }, [])
 
   const set = (patch: Partial<Form>) => setForm(f => ({ ...f, ...patch }))
   const isKumite = form.event === 'Kumite'
@@ -118,7 +125,13 @@ export default function RegisterPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className={labelCls}>Team / Club</label>
-                  <input className={inputCls} value={form.teamName} onChange={e => set({ teamName: e.target.value })} placeholder="Your club or team name" />
+                  <select className={inputCls} value={form.teamRegistrationId} onChange={e => set({ teamRegistrationId: e.target.value })}>
+                    <option value="">{teams.length ? 'Individual / no team' : 'No teams registered yet'}</option>
+                    {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                  </select>
+                  {teams.length === 0 && (
+                    <p className="text-xs text-white/35 mt-1.5">Belong to a team? Register it first via <Link href="/register/team" className="text-[#C9A84C] hover:underline">Team Registration</Link>.</p>
+                  )}
                 </div>
                 <div>
                   <label className={labelCls}>Category <span className="text-[#C8102E]">*</span></label>

@@ -25,7 +25,18 @@ export async function POST(req: NextRequest) {
       }
     }
     const supabase = getSupabase()
-    const { data, error } = await supabase.from(cfg.table).insert(regToRow(cfg.type, body)).select('*').single()
+    const row = regToRow(cfg.type, body)
+    // Snapshot the selected team's name into the `team` column (for display),
+    // alongside the team_registration_id FK.
+    if (row.team_registration_id && ('team' in row || cfg.type === 'official' || cfg.type === 'hotel')) {
+      const { data: team } = await supabase
+        .from('team_registrations')
+        .select('team_name')
+        .eq('id', row.team_registration_id)
+        .single()
+      if (team) row.team = team.team_name
+    }
+    const { data, error } = await supabase.from(cfg.table).insert(row).select('*').single()
     if (error) throw error
     return NextResponse.json(rowToReg(cfg.type, data), { status: 201 })
   } catch (e) {

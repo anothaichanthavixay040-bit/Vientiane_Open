@@ -1,8 +1,10 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { REG_TYPES, RegField } from '@/lib/registrationTypes'
 import { CheckCircle2, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react'
+
+type Team = { id: string; name: string }
 
 const inputCls = 'w-full bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm px-4 py-3 focus:outline-none focus:border-[#C8102E] transition-colors'
 const labelCls = 'font-condensed text-[11px] tracking-[2px] uppercase text-[#C9A84C] mb-1.5 block'
@@ -14,6 +16,13 @@ export default function RegisterTypeForm({ type }: { type: string }) {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState(false)
+  const [teams, setTeams] = useState<Team[]>([])
+
+  const needsTeams = !!cfg && cfg.fields.some(f => f.type === 'teamSelect')
+  useEffect(() => {
+    if (!needsTeams) return
+    fetch('/api/teams').then(r => r.json()).then(d => { if (Array.isArray(d)) setTeams(d) }).catch(() => {})
+  }, [needsTeams])
 
   if (!cfg) return null
 
@@ -46,7 +55,17 @@ export default function RegisterTypeForm({ type }: { type: string }) {
     return (
       <div key={f.key} className={f.full ? 'sm:col-span-2' : ''}>
         <label className={labelCls}>{f.label} {f.required && <span className="text-[#C8102E]">*</span>}</label>
-        {f.type === 'select' ? (
+        {f.type === 'teamSelect' ? (
+          <>
+            <select className={inputCls} {...common} onChange={e => set(f.key, e.target.value)}>
+              <option value="">{teams.length ? 'Select a registered team…' : 'No teams registered yet'}</option>
+              {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+            </select>
+            {teams.length === 0 && (
+              <p className="text-xs text-white/35 mt-1.5">Register a team first via <Link href="/register/team" className="text-[#C9A84C] hover:underline">Team Registration</Link>.</p>
+            )}
+          </>
+        ) : f.type === 'select' ? (
           <select className={inputCls} {...common} onChange={e => set(f.key, e.target.value)}>
             <option value="">Select…</option>
             {f.options?.map(o => <option key={o} value={o}>{o}</option>)}

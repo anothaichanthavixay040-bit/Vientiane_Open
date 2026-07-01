@@ -2,10 +2,10 @@
 // Each type writes to its OWN Supabase table (see supabase/schema.sql).
 // `table` = destination table; each field's `column` = destination column.
 
-export type FieldType = 'text' | 'email' | 'tel' | 'number' | 'select' | 'textarea'
+export type FieldType = 'text' | 'email' | 'tel' | 'number' | 'select' | 'textarea' | 'teamSelect'
 
 export interface RegField {
-  key: 'name' | 'email' | 'phone' | 'country' | 'organization' | 'role' | 'quantity' | 'notes'
+  key: 'name' | 'email' | 'phone' | 'country' | 'organization' | 'role' | 'quantity' | 'notes' | 'teamRegistrationId'
   column: string            // DB column this field maps to
   label: string
   type: FieldType
@@ -50,7 +50,7 @@ export const REG_TYPES: Record<string, RegTypeConfig> = {
     fields: [
       { key: 'name', column: 'full_name', label: 'Full Name', type: 'text', required: true, placeholder: 'Full name' },
       { key: 'role', column: 'role', label: 'Role', type: 'select', required: true, options: ['Coach', 'Team Manager', 'Team Doctor', 'Delegate', 'Other'] },
-      { key: 'organization', column: 'team', label: 'Team / Club', type: 'text', placeholder: 'Team or club' },
+      { key: 'teamRegistrationId', column: 'team_registration_id', label: 'Team', type: 'teamSelect' },
       { key: 'country', column: 'country', label: 'Country', type: 'text', placeholder: 'e.g. LAO' },
       { key: 'email', column: 'email', label: 'Email', type: 'email', placeholder: 'name@email.com' },
       { key: 'phone', column: 'phone', label: 'Phone / WhatsApp', type: 'tel', placeholder: '+856 …' },
@@ -82,7 +82,7 @@ export const REG_TYPES: Record<string, RegTypeConfig> = {
       { key: 'role', column: 'room_type', label: 'Room Type', type: 'select', required: true, options: ['Single — $50', 'Double — $60', 'Triple — $80'] },
       { key: 'quantity', column: 'rooms_count', label: 'Number of Rooms', type: 'number', placeholder: 'e.g. 1' },
       { key: 'notes', column: 'dates', label: 'Check-in → Check-out', type: 'text', placeholder: 'e.g. 28 Aug → 31 Aug', full: true },
-      { key: 'organization', column: 'team', label: 'Team / Club', type: 'text', placeholder: 'Team or club (optional)' },
+      { key: 'teamRegistrationId', column: 'team_registration_id', label: 'Team', type: 'teamSelect' },
       { key: 'email', column: 'email', label: 'Email', type: 'email', placeholder: 'name@email.com' },
       { key: 'phone', column: 'phone', label: 'Phone / WhatsApp', type: 'tel', placeholder: '+856 …' },
     ],
@@ -108,5 +108,7 @@ export function rowToReg(type: string, row: Record<string, unknown>) {
   const cfg = REG_TYPES[type]
   const out: Record<string, unknown> = { id: row.id, type, status: row.status, created_at: row.created_at }
   for (const f of cfg.fields) out[f.key] = row[f.column] ?? undefined
+  // show the team name snapshot (team column) in the admin "Org / Role" cell
+  if (out.organization === undefined && row.team) out.organization = row.team
   return out
 }

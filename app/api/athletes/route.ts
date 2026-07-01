@@ -48,8 +48,18 @@ export async function POST(req: NextRequest) {
     }
 
     const row = athleteToRow({ ...body, name })
-    // Best-effort link to a registered team (team hub) by matching team name.
-    if (row.team_name) {
+    // Link to a registered team (team hub).
+    if (body.teamRegistrationId) {
+      // Public form sends the team id directly → snapshot its name for display.
+      row.team_registration_id = body.teamRegistrationId
+      const { data: team } = await supabase
+        .from('team_registrations')
+        .select('team_name')
+        .eq('id', body.teamRegistrationId)
+        .single()
+      if (team) row.team_name = team.team_name
+    } else if (row.team_name) {
+      // Admin typed a team name → best-effort match to an existing team.
       const { data: team } = await supabase
         .from('team_registrations')
         .select('id')
