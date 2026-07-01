@@ -8,8 +8,9 @@ import Image from 'next/image'
 const links = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
-  // { href: '/events', label: 'Events' },
-  // { href: '/checkin', label: 'Check-In' },
+  { href: '/events#categories', label: 'Categories' },
+  { href: '/events#schedule', label: 'Schedule' },
+  { href: '/faq', label: 'FAQ' },
 ]
 
 export default function Navbar() {

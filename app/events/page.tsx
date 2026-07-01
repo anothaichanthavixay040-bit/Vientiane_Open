@@ -122,7 +122,7 @@ export default function EventsPage() {
           </div>
 
           {/* Schedule */}
-          <div className="mb-10">
+          <div id="schedule" className="mb-10 scroll-mt-24">
             <div className="font-bebas text-2xl sm:text-3xl text-white tracking-widest mb-4">Event Programme</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {schedule.map((s, i) => (
@@ -141,8 +141,9 @@ export default function EventsPage() {
           </div>
 
           {/* Categories */}
-          <div className="mb-10">
+          <div id="categories" className="mb-10 scroll-mt-24">
             <div className="font-bebas text-2xl sm:text-3xl text-white tracking-widest mb-4">Competition Categories</div>
+            <p className="text-sm text-white/50 mb-4 leading-relaxed">Every age group offers Individual Kata &amp; Kumite; team events (Team Kata / Team Kumite) are shown per category. Kata has no weight class. Latest WKF / AKF rules apply. Bout durations: Senior 3:00 · Cadet/Junior 2:00 · U14/U12 1:30 · U10/U8 1:00.</p>
             <div className="space-y-2">
               {categories.map(cat => (
                 <details key={cat.name} className="group bg-[#1a1a1a] border border-[#C9A84C]/10">
@@ -225,9 +226,19 @@ export default function EventsPage() {
           </div> */}
 
           {/* Payment info */}
-          <div className="mt-4 bg-[#1a1a1a] border border-white/5 p-5 text-xs text-white/40 leading-relaxed">
-            <span className="font-condensed tracking-[2px] uppercase text-white/60 mr-2">Fees &amp; Payment:</span>
-            Individual event USD 15 / athlete / category · Team event USD 30 / team / category. All entry fees payable to the Organizing Committee upon onsite registration (28 August, 2026). Bank: ST Bank LTD (STB) · Beneficiary: Vientiane Karate Federation · Acct: 0010120006230 · Swift: STBDLALA. All bank charges borne by payer.
+          <div id="payment" className="mt-4 bg-[#1a1a1a] border border-white/5 p-5 text-xs text-white/40 leading-relaxed scroll-mt-24 space-y-2">
+            <div>
+              <span className="font-condensed tracking-[2px] uppercase text-white/60 mr-2">Fees:</span>
+              Individual event <span className="text-[#C9A84C]">USD 15</span> / athlete / category · Team event <span className="text-[#C9A84C]">USD 30</span> / team / category.
+            </div>
+            <div>
+              <span className="font-condensed tracking-[2px] uppercase text-white/60 mr-2">Bank Transfer:</span>
+              ST Bank LTD (STB) · Beneficiary: Vientiane Karate Federation · Acct: <span className="text-white/70">0010120006230</span> · Swift: <span className="text-white/70">STBDLALA</span>. All bank charges borne by the payer. Payment may also be made to the OC upon onsite registration (28 August 2026).
+            </div>
+            <div>
+              <span className="font-condensed tracking-[2px] uppercase text-white/60 mr-2">Proof of Payment:</span>
+              After transferring, send your payment slip with the athlete/team name to the OC via WhatsApp <a href="https://wa.me/8562022437711" target="_blank" rel="noopener noreferrer" className="text-[#C9A84C] hover:underline">+856 20 22437711</a> or email <a href="mailto:vientianekaratefederation@gmail.com" className="text-[#C9A84C] hover:underline">vientianekaratefederation@gmail.com</a>. Your entry is confirmed once payment is received.
+            </div>
           </div>
         </div>
       </section>

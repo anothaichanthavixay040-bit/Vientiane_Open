@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import FeaturedTicket from '@/components/FeaturedTicket'
+import Countdown from '@/components/Countdown'
 
 const stats = [
   { num: '2026', label: 'Championship Year' },
@@ -60,6 +61,9 @@ export default function HomePage() {
           </div>
         ))}
       </div>
+
+      {/* Countdown to registration deadline */}
+      <Countdown />
 
       {/* Featured Event — Ticket (opens detail modal) */}
       <FeaturedTicket />
