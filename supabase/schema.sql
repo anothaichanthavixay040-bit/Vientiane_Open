@@ -14,17 +14,19 @@ create table if not exists public.athletes (
   qr_code       text not null default '',
   checked_in    boolean not null default false,
   checked_in_at timestamptz,
-  team_name     text,
-  bib           text,
-  events        text,
-  date_of_birth date,
-  passport_no   text,
-  created_at    timestamptz not null default now()
+  team_name            text,
+  bib                  text,
+  events               text,
+  date_of_birth        date,
+  passport_no          text,
+  team_registration_id text,
+  created_at           timestamptz not null default now()
 );
 -- if the athletes table already exists, add the newer columns:
-alter table public.athletes add column if not exists events        text;
-alter table public.athletes add column if not exists date_of_birth date;
-alter table public.athletes add column if not exists passport_no   text;
+alter table public.athletes add column if not exists events               text;
+alter table public.athletes add column if not exists date_of_birth        date;
+alter table public.athletes add column if not exists passport_no          text;
+alter table public.athletes add column if not exists team_registration_id text;
 
 -- ---------- CHECK-IN LOG ----------
 create table if not exists public.checkins (
@@ -53,16 +55,18 @@ create table if not exists public.team_registrations (
 
 -- ---------- TEAM OFFICIALS ----------
 create table if not exists public.official_registrations (
-  id         text primary key default gen_random_uuid()::text,
-  full_name  text not null,
-  role       text not null,
-  team       text,
-  country    text,
-  email      text,
-  phone      text,
-  status     text not null default 'pending',
-  created_at timestamptz not null default now()
+  id                   text primary key default gen_random_uuid()::text,
+  full_name            text not null,
+  role                 text not null,
+  team                 text,
+  country              text,
+  email                text,
+  phone                text,
+  status               text not null default 'pending',
+  team_registration_id text,
+  created_at           timestamptz not null default now()
 );
+alter table public.official_registrations add column if not exists team_registration_id text;
 
 -- ---------- REFEREE REGISTRATIONS ----------
 create table if not exists public.referee_registrations (
@@ -79,17 +83,40 @@ create table if not exists public.referee_registrations (
 
 -- ---------- HOTEL BOOKINGS ----------
 create table if not exists public.hotel_bookings (
-  id          text primary key default gen_random_uuid()::text,
-  full_name   text not null,
-  room_type   text not null,
-  rooms_count integer,
-  dates       text,
-  team        text,
-  email       text,
-  phone       text,
-  status      text not null default 'pending',
-  created_at  timestamptz not null default now()
+  id                   text primary key default gen_random_uuid()::text,
+  full_name            text not null,
+  room_type            text not null,
+  rooms_count          integer,
+  dates                text,
+  team                 text,
+  email                text,
+  phone                text,
+  status               text not null default 'pending',
+  team_registration_id text,
+  created_at           timestamptz not null default now()
 );
+alter table public.hotel_bookings add column if not exists team_registration_id text;
+
+-- ---------- RELATIONSHIPS (foreign keys) ----------
+alter table public.checkins drop constraint if exists checkins_athlete_id_fkey;
+alter table public.checkins
+  add constraint checkins_athlete_id_fkey
+  foreign key (athlete_id) references public.athletes(id) on delete set null;
+
+alter table public.athletes drop constraint if exists athletes_team_registration_id_fkey;
+alter table public.athletes
+  add constraint athletes_team_registration_id_fkey
+  foreign key (team_registration_id) references public.team_registrations(id) on delete set null;
+
+alter table public.official_registrations drop constraint if exists official_team_registration_id_fkey;
+alter table public.official_registrations
+  add constraint official_team_registration_id_fkey
+  foreign key (team_registration_id) references public.team_registrations(id) on delete set null;
+
+alter table public.hotel_bookings drop constraint if exists hotel_team_registration_id_fkey;
+alter table public.hotel_bookings
+  add constraint hotel_team_registration_id_fkey
+  foreign key (team_registration_id) references public.team_registrations(id) on delete set null;
 
 -- ---------- Row Level Security ----------
 -- Public can READ. All writes go through the server-side secret key, which

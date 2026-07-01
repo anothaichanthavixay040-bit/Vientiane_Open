@@ -16,7 +16,9 @@ function fail(e: unknown) {
 
 async function logCheckin(supabase: ReturnType<typeof getSupabase>, event: CheckInEvent) {
   await supabase.from('checkins').insert({
-    athlete_id: event.athleteId,
+    // athlete_id is a FK to athletes.id — for "not_found" scans there is no
+    // matching athlete, so store null (the scanned code stays in athlete_name).
+    athlete_id: event.status === 'not_found' ? null : event.athleteId,
     athlete_name: event.athleteName,
     category: event.category,
     country: event.country,
@@ -39,7 +41,7 @@ export async function POST(req: NextRequest) {
     const athleteRow = rows?.[0]
 
     if (!athleteRow) {
-      const event: CheckInEvent = { athleteId: qrCode, athleteName: 'Unknown', category: '', country: '', timestamp: new Date().toISOString(), status: 'not_found' }
+      const event: CheckInEvent = { athleteId: qrCode, athleteName: `Unknown (${qrCode})`, category: '', country: '', timestamp: new Date().toISOString(), status: 'not_found' }
       await logCheckin(supabase, event)
       broadcast('checkin', event)
       return NextResponse.json(event, { status: 404 })

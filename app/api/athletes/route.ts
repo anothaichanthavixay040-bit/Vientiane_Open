@@ -48,6 +48,15 @@ export async function POST(req: NextRequest) {
     }
 
     const row = athleteToRow({ ...body, name })
+    // Best-effort link to a registered team (team hub) by matching team name.
+    if (row.team_name) {
+      const { data: team } = await supabase
+        .from('team_registrations')
+        .select('id')
+        .ilike('team_name', String(row.team_name))
+        .limit(1)
+      if (team && team[0]) row.team_registration_id = team[0].id
+    }
     // Default the QR code to the athlete id by inserting first, then patching if absent.
     const { data, error } = await supabase.from('athletes').insert(row).select('*').single()
     if (error) throw error
