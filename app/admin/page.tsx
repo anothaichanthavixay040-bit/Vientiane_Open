@@ -41,12 +41,18 @@ export default function AdminPage() {
   const [athleteForm, setAthleteForm] = useState<AthleteForm | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [query, setQuery] = useState('')
+  const [catFilter, setCatFilter] = useState('all')
+  const [genderFilter, setGenderFilter] = useState('all')
 
   const q = query.trim().toLowerCase()
   const has = (v: unknown) => String(v ?? '').toLowerCase().includes(q)
-  const filteredAthletes = q
-    ? athletes.filter(a => [a.name, a.teamName, a.country, a.category, a.weightClass, a.gender, a.passportNo, a.dateOfBirth, a.events, a.bib].some(has))
-    : athletes
+  // category options from athletes actually present (fallback to official list)
+  const athleteCats = Array.from(new Set(athletes.map(a => a.category).filter(Boolean)))
+  const filteredAthletes = athletes.filter(a =>
+    (!q || [a.name, a.teamName, a.country, a.category, a.weightClass, a.gender, a.passportNo, a.dateOfBirth, a.events, a.bib].some(has)) &&
+    (catFilter === 'all' || a.category === catFilter) &&
+    (genderFilter === 'all' || a.gender === genderFilter)
+  )
   const filteredRegistrations = q
     ? registrations.filter(r => [r.name, r.type, r.organization, r.role, r.email, r.phone, r.country, r.notes].some(has))
     : registrations
@@ -109,18 +115,35 @@ export default function AdminPage() {
           ))}
         </div>
 
-        {/* Search */}
+        {/* Search + filters */}
         {!loading && (
-          <div className="relative mb-6 max-w-md">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C9A84C]/70 pointer-events-none" />
-            <input
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              placeholder={tab === 'athletes' ? 'Search athletes — name, team, country, passport…' : 'Search registrations — name, type, org, email…'}
-              className="w-full bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm pl-9 pr-9 py-2.5 focus:outline-none focus:border-[#C8102E] transition-colors"
-            />
-            {query && (
-              <button onClick={() => setQuery('')} aria-label="Clear search" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white"><X size={15} /></button>
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            <div className="relative flex-1 max-w-md">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C9A84C]/70 pointer-events-none" />
+              <input
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                placeholder={tab === 'athletes' ? 'Search athletes — name, team, country, passport…' : 'Search registrations — name, type, org, email…'}
+                className="w-full bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm pl-9 pr-9 py-2.5 focus:outline-none focus:border-[#C8102E] transition-colors"
+              />
+              {query && (
+                <button onClick={() => setQuery('')} aria-label="Clear search" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white"><X size={15} /></button>
+              )}
+            </div>
+            {tab === 'athletes' && (
+              <div className="flex gap-3">
+                <select value={catFilter} onChange={e => setCatFilter(e.target.value)}
+                  className="bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm px-3 py-2.5 focus:outline-none focus:border-[#C8102E] transition-colors">
+                  <option value="all">All categories</option>
+                  {athleteCats.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+                <select value={genderFilter} onChange={e => setGenderFilter(e.target.value)}
+                  className="bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm px-3 py-2.5 focus:outline-none focus:border-[#C8102E] transition-colors">
+                  <option value="all">All genders</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
             )}
           </div>
         )}
@@ -191,7 +214,7 @@ export default function AdminPage() {
             {athletes.length === 0 && !error ? (
               <div className="text-center text-white/40 font-condensed tracking-widest py-16">No athletes yet. Click “New Athlete”.</div>
             ) : filteredAthletes.length === 0 ? (
-              <div className="text-center text-white/40 font-condensed tracking-widest py-16">No athletes match “{query}”.</div>
+              <div className="text-center text-white/40 font-condensed tracking-widest py-16">No athletes match your search / filters.</div>
             ) : (
               <div className="overflow-x-auto border border-[#C9A84C]/10">
                 <table className="w-full text-sm">
