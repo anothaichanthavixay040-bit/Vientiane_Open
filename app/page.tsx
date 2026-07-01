@@ -2,13 +2,6 @@ import Link from 'next/link'
 import FeaturedTicket from '@/components/FeaturedTicket'
 import Countdown from '@/components/Countdown'
 
-const stats = [
-  { num: '2026', label: 'Championship Year' },
-  { num: '9', label: 'Age Categories' },
-  { num: 'REWARD', label: 'MEDAL & E-CERTIFICATE' },
-  { num: '29-30', label: 'August, Vientiane' },
-]
-
 export default function HomePage() {
   return (
     <div className="pt-16 sm:pt-20">
@@ -51,16 +44,6 @@ export default function HomePage() {
           SCROLL
         </div>
       </section>
-
-      {/* Stats bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 bg-[#C8102E]">
-        {stats.map(s => (
-          <div key={s.num} className="py-6 sm:py-8 px-4 text-center border-r border-white/15 last:border-r-0 [&:nth-child(2)]:border-r-0 sm:[&:nth-child(2)]:border-r">
-            <div className="font-bebas text-4xl sm:text-5xl text-white tracking-widest">{s.num}</div>
-            <div className="font-condensed text-[10px] sm:text-xs tracking-[2px] text-white/70 uppercase mt-1">{s.label}</div>
-          </div>
-        ))}
-      </div>
 
       {/* Countdown to registration deadline */}
       <Countdown />
