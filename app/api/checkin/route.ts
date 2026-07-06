@@ -32,13 +32,12 @@ export async function POST(req: NextRequest) {
     const { qrCode } = await req.json()
     const supabase = getSupabase()
 
-    const { data: rows, error } = await supabase
-      .from('athletes')
-      .select('*')
-      .or(`qr_code.eq.${qrCode},id.eq.${qrCode}`)
-      .limit(1)
-    if (error) throw error
-    const athleteRow = rows?.[0]
+    // ponytail: two .eq lookups instead of .or(`…${qrCode}`) — string interpolation
+    // into a PostgREST filter is injectable; .eq encodes the value safely.
+    const byQr = await supabase.from('athletes').select('*').eq('qr_code', qrCode).limit(1)
+    const found = byQr.data?.length ? byQr : await supabase.from('athletes').select('*').eq('id', qrCode).limit(1)
+    if (found.error) throw found.error
+    const athleteRow = found.data?.[0]
 
     if (!athleteRow) {
       const event: CheckInEvent = { athleteId: qrCode, athleteName: `Unknown (${qrCode})`, category: '', country: '', timestamp: new Date().toISOString(), status: 'not_found' }
