@@ -58,3 +58,31 @@ export const categories: Category[] = [
     hasTeamKata: false, boutDuration: '1:00 min'
   },
 ]
+
+// Age is calculated on the competition's first day (Bulletin V2).
+export const AGE_REFERENCE = '2026-08-29'
+
+// Age in whole years as of the reference date — a birthday that falls after
+// the reference date this year does not count yet.
+export function ageOn(dob: string, ref: string = AGE_REFERENCE): number | null {
+  if (!dob) return null
+  const b = new Date(dob), r = new Date(ref)
+  if (isNaN(b.getTime()) || isNaN(r.getTime())) return null
+  let age = r.getFullYear() - b.getFullYear()
+  if (r.getMonth() < b.getMonth() || (r.getMonth() === b.getMonth() && r.getDate() < b.getDate())) age--
+  return age
+}
+
+// Deterministic, non-overlapping age → category. Boundaries are inclusive going
+// up: reach the next band's minimum age and you move up — no free choice.
+export function categoryForAge(age: number): string {
+  if (age <= 5) return 'U6'
+  if (age <= 7) return 'Under 8'
+  if (age <= 9) return 'Under 10'
+  if (age <= 11) return 'Under 12'
+  if (age <= 13) return 'Under 14'
+  if (age <= 15) return 'Cadets'
+  if (age <= 17) return 'Juniors'
+  if (age <= 20) return 'Under 21'
+  return 'Seniors'
+}

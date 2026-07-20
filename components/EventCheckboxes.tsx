@@ -4,7 +4,7 @@ import { Check } from 'lucide-react'
 // Event options an athlete can enter. Team events are split male / female.
 export const EVENT_GROUPS = [
   { heading: 'Individual', options: ['Kumite', 'Kata'] },
-  { heading: 'Team', options: ['Kumite Team (Male)', 'Kumite Team (Female)', 'Kata Team (Male)', 'Kata Team (Female)'] },
+  { heading: 'Team', options: ['Kumite Team', 'Kata Team'] },
 ]
 
 export function EventCheckboxes({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) {

@@ -16,8 +16,8 @@ const facts = [
 const categories = ['Kata', 'Kumite', 'Team Kata', 'Team Kumite']
 
 const registerLinks = [
-  { label: 'Athlete Register', sub: 'All age categories & events', href: ATHLETE_FORM, Icon: Swords },
   { label: 'Team Register', sub: 'Register your full team', href: '/register/team', Icon: Users },
+  { label: 'Athlete Register', sub: 'All age categories & events', href: ATHLETE_FORM, Icon: Swords },
   { label: 'Team Officials', sub: 'Delegates, coaches & officials', href: '/register/official', Icon: ClipboardList },
   { label: 'Referee Register', sub: 'WKF / AKF / National certified', href: '/register/referee', Icon: Scale },
   { label: 'Hotel Booking', sub: 'Official HQ hotel', href: '/register/hotel', Icon: Hotel },

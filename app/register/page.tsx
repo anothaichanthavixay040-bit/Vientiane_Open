@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { categories } from '@/lib/categories'
+import { categories, ageOn, categoryForAge, AGE_REFERENCE } from '@/lib/categories'
+import { EventCheckboxes } from '@/components/EventCheckboxes'
 import { CheckCircle2, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react'
 
 type Team = { id: string; name: string }
 
-const catNames = categories.map(c => c.name)
 const inputCls = 'w-full bg-[#1a1a1a] border border-[#C9A84C]/20 text-white text-sm px-4 py-3 focus:outline-none focus:border-[#C8102E] transition-colors'
 const labelCls = 'font-condensed text-[11px] tracking-[2px] uppercase text-[#C9A84C] mb-1.5 block'
 
@@ -20,9 +20,9 @@ function weightsFor(catName: string, gender: string): string[] {
 type Form = {
   name: string; gender: 'male' | 'female'; dateOfBirth: string; passportNo: string;
   country: string; teamRegistrationId: string;
-  category: string; event: 'Kumite' | 'Kata'; weightClass: string
+  events: string[]; weightClass: string
 }
-const blank: Form = { name: '', gender: 'male', dateOfBirth: '', passportNo: '', country: '', teamRegistrationId: '', category: 'Seniors', event: 'Kumite', weightClass: '' }
+const blank: Form = { name: '', gender: 'male', dateOfBirth: '', passportNo: '', country: '', teamRegistrationId: '', events: ['Kumite'], weightClass: '' }
 
 export default function RegisterPage() {
   const [form, setForm] = useState<Form>(blank)
@@ -36,21 +36,24 @@ export default function RegisterPage() {
   }, [])
 
   const set = (patch: Partial<Form>) => setForm(f => ({ ...f, ...patch }))
-  const isKumite = form.event === 'Kumite'
-  const weights = weightsFor(form.category, form.gender)
+  const age = form.dateOfBirth ? ageOn(form.dateOfBirth) : null
+  const category = age != null ? categoryForAge(age) : ''   // auto-assigned from age, not chosen
+  const needsWeight = form.events.includes('Kumite')        // only individual Kumite has a weight class
+  const weights = weightsFor(category, form.gender)
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name.trim()) { setError('Please enter the athlete’s full name.'); return }
-    if (!form.dateOfBirth) { setError('Please enter the date of birth.'); return }
-    if (isKumite && !form.weightClass) { setError('Please select a weight class.'); return }
+    if (!form.dateOfBirth || !category) { setError('Please enter a valid date of birth.'); return }
+    if (!form.events.length) { setError('Please select at least one event.'); return }
+    if (needsWeight && !form.weightClass) { setError('Please select a weight class for Kumite.'); return }
     setSubmitting(true); setError(null)
     try {
       const res = await fetch('/api/athletes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // Kata has no weight class — send it empty.
-        body: JSON.stringify({ ...form, weightClass: isKumite ? form.weightClass : '', events: form.event }),
+        // Category is derived from age; weight class only applies to individual Kumite.
+        body: JSON.stringify({ ...form, category, weightClass: needsWeight ? form.weightClass : '', events: form.events.join(', ') }),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) { setError(data.error || 'Registration failed. Please try again.'); return }
@@ -107,7 +110,7 @@ export default function RegisterPage() {
                 </div>
                 <div>
                   <label className={labelCls}>Date of Birth <span className="text-[#C8102E]">*</span></label>
-                  <input type="date" className={inputCls} style={{ colorScheme: 'dark' }} value={form.dateOfBirth} onChange={e => set({ dateOfBirth: e.target.value })} max="2026-08-29" required />
+                  <input type="date" className={inputCls} style={{ colorScheme: 'dark' }} value={form.dateOfBirth} onChange={e => set({ dateOfBirth: e.target.value, weightClass: '' })} max={AGE_REFERENCE} required />
                 </div>
                 <div>
                   <label className={labelCls}>Passport / ID No.</label>
@@ -133,32 +136,31 @@ export default function RegisterPage() {
                     <p className="text-xs text-white/35 mt-1.5">Belong to a team? Register it first via <Link href="/register/team" className="text-[#C9A84C] hover:underline">Team Registration</Link>.</p>
                   )}
                 </div>
-                <div>
-                  <label className={labelCls}>Category <span className="text-[#C8102E]">*</span></label>
-                  <select className={inputCls} value={form.category} onChange={e => set({ category: e.target.value, weightClass: '' })}>
-                    {catNames.map(c => <option key={c} value={c}>{c}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className={labelCls}>Event <span className="text-[#C8102E]">*</span></label>
-                  <select className={inputCls} value={form.event} onChange={e => set({ event: e.target.value as Form['event'], weightClass: '' })}>
-                    <option value="Kumite">Kumite</option>
-                    <option value="Kata">Kata</option>
-                  </select>
+                <div className="sm:col-span-2">
+                  <label className={labelCls}>Category <span className="text-white/30 normal-case tracking-normal">— auto-assigned from age on {AGE_REFERENCE}</span></label>
+                  <div className={`${inputCls} flex items-center justify-between ${category ? '' : 'text-white/40'}`}>
+                    <span>{category || 'Enter date of birth first…'}</span>
+                    {category && <span className="font-condensed text-[11px] tracking-[2px] uppercase text-[#C9A84C]">Age {age}</span>}
+                  </div>
                 </div>
 
-                {/* Weight class only applies to Kumite */}
-                {isKumite ? (
+                <div className="sm:col-span-2">
+                  <label className={labelCls}>Events <span className="text-[#C8102E]">*</span> <span className="text-white/30 normal-case tracking-normal">— choose one or more</span></label>
+                  <EventCheckboxes value={form.events} onChange={events => set({ events, weightClass: '' })} />
+                </div>
+
+                {/* Weight class only applies to individual Kumite */}
+                {needsWeight ? (
                   <div className="sm:col-span-2">
                     <label className={labelCls}>Weight Class <span className="text-[#C8102E]">*</span></label>
-                    <select className={inputCls} value={form.weightClass} onChange={e => set({ weightClass: e.target.value })} required>
-                      <option value="">Select weight…</option>
+                    <select className={inputCls} value={form.weightClass} onChange={e => set({ weightClass: e.target.value })} required disabled={!category}>
+                      <option value="">{category ? 'Select weight…' : 'Enter date of birth first…'}</option>
                       {weights.map(w => <option key={w} value={w}>{w}</option>)}
                     </select>
                   </div>
                 ) : (
                   <div className="sm:col-span-2 flex items-center gap-2 text-xs text-white/40 bg-[#1a1a1a] border border-white/5 px-4 py-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" /> Kata has no weight class — no weight selection needed.
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" /> No individual Kumite selected — no weight class needed.
                   </div>
                 )}
               </div>
