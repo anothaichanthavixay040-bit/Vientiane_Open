@@ -53,7 +53,7 @@ export default function EventsPage() {
                   {[
                     { icon: <Calendar size={14}/>, val: '29–30 August, 2026' },
                     { icon: <MapPin size={14}/>, val: 'Vientiane Center Mall, Laos' },
-                    { icon: <Clock size={14}/>, val: 'Registration closes: 1 August, 2026' },
+                    { icon: <Clock size={14}/>, val: 'Registration closes: 15 August, 2026' },
                   ].map(m => (
                     <span key={m.val} className="flex items-center gap-1.5 font-condensed text-xs sm:text-sm text-white/60">
                       <span className="text-[#C9A84C]">{m.icon}</span>{m.val}
@@ -214,7 +214,7 @@ export default function EventsPage() {
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-white/30 mt-3">★ Rates include breakfast · Must be reserved via OC before 1 August, 2026</p>
+                <p className="text-xs text-white/30 mt-3">★ Rates include breakfast · Must be reserved via OC before 15 August, 2026</p>
               </div>
               <div className="flex-shrink-0">
                 <a href="/register/hotel" target="_blank" rel="noopener noreferrer"

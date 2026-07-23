@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: 'When does registration close? Is on-site registration allowed?',
-    a: 'Online registration closes on 1 August 2026. Teams are strongly encouraged to register and arrange payment before the deadline. Please complete registration online in advance rather than relying on the day of the event.',
+    a: 'Online registration closes on 15 August 2026. Teams are strongly encouraged to register and arrange payment before the deadline. Please complete registration online in advance rather than relying on the day of the event.',
   },
   {
     q: 'Do international teams need an Invitation Letter or visa support?',
@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: 'Where is the venue and official hotel?',
-    a: 'Competition venue: 1st Floor, Vientiane Center Mall, Vientiane Capital, Laos. Official HQ hotel: Landmark Vientiane Life Center Hotel (Single $50 / Double $60 / Triple $80, breakfast included) — reserve via the OC before 1 August 2026.',
+    a: 'Competition venue: 1st Floor, Vientiane Center Mall, Vientiane Capital, Laos. Official HQ hotel: Landmark Vientiane Life Center Hotel (Single $50 / Double $60 / Triple $80, breakfast included) — reserve via the OC before 15 August 2026.',
   },
 ]
 

@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Clock, ArrowRight } from 'lucide-react'
 
-// Registration deadline — 1 August 2026 (end of day, local).
-const DEADLINE = new Date('2026-08-01T23:59:59+07:00').getTime()
+// Registration deadline — 15 August 2026 (end of day, local).
+const DEADLINE = new Date('2026-08-15T23:59:59+07:00').getTime()
 
 function parts(ms: number) {
   const s = Math.max(0, Math.floor(ms / 1000))
@@ -38,7 +38,7 @@ export default function Countdown() {
             <Clock size={14} /> {closed ? 'Registration Closed' : 'Registration Closes In'}
           </div>
           <div className="font-condensed text-sm text-white/60">
-            Deadline <span className="text-white font-semibold">1 August 2026</span> · Online only — please register early.
+            Deadline <span className="text-white font-semibold">15 August 2026</span> · Online only — please register early.
           </div>
         </div>
 
