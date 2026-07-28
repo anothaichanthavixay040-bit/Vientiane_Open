@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { categories, ageOn, categoryForAge, AGE_REFERENCE } from '@/lib/categories'
+import { categories, ageOn, categoriesForAge, AGE_REFERENCE } from '@/lib/categories'
 import { EventCheckboxes } from '@/components/EventCheckboxes'
 import { CheckCircle2, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react'
 
@@ -20,9 +20,9 @@ function weightsFor(catName: string, gender: string): string[] {
 type Form = {
   name: string; gender: 'male' | 'female'; dateOfBirth: string; passportNo: string;
   country: string; teamRegistrationId: string;
-  events: string[]; weightClass: string
+  events: string[]; weightClass: string; category: string
 }
-const blank: Form = { name: '', gender: 'male', dateOfBirth: '', passportNo: '', country: '', teamRegistrationId: '', events: ['Kumite'], weightClass: '' }
+const blank: Form = { name: '', gender: 'male', dateOfBirth: '', passportNo: '', country: '', teamRegistrationId: '', events: ['Kumite'], weightClass: '', category: '' }
 
 export default function RegisterPage() {
   const [form, setForm] = useState<Form>(blank)
@@ -37,7 +37,11 @@ export default function RegisterPage() {
 
   const set = (patch: Partial<Form>) => setForm(f => ({ ...f, ...patch }))
   const age = form.dateOfBirth ? ageOn(form.dateOfBirth) : null
-  const category = age != null ? categoryForAge(age) : ''   // auto-assigned from age, not chosen
+  const catOptions = age != null ? categoriesForAge(age) : []   // eligible categories for this age
+  // Category is derived from age; from 18 up the athlete may choose Under 21 or
+  // Seniors, so honour their pick when it is still valid, else default to the first.
+  const category = catOptions.includes(form.category) ? form.category : (catOptions[0] || '')
+  const canPickCategory = catOptions.length > 1
   const needsWeight = form.events.includes('Kumite')        // only individual Kumite has a weight class
   const weights = weightsFor(category, form.gender)
 
@@ -137,11 +141,20 @@ export default function RegisterPage() {
                   )}
                 </div>
                 <div className="sm:col-span-2">
-                  <label className={labelCls}>Category <span className="text-white/30 normal-case tracking-normal">— auto-assigned from age on {AGE_REFERENCE}</span></label>
-                  <div className={`${inputCls} flex items-center justify-between ${category ? '' : 'text-white/40'}`}>
-                    <span>{category || 'Enter date of birth first…'}</span>
-                    {category && <span className="font-condensed text-[11px] tracking-[2px] uppercase text-[#C9A84C]">Age {age}</span>}
-                  </div>
+                  <label className={labelCls}>Category <span className="text-white/30 normal-case tracking-normal">{canPickCategory ? '— choose your division (age qualifies for both)' : `— auto-assigned from age on ${AGE_REFERENCE}`}</span></label>
+                  {canPickCategory ? (
+                    <>
+                      <select className={inputCls} value={category} onChange={e => set({ category: e.target.value, weightClass: '' })}>
+                        {catOptions.map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                      <p className="text-xs text-white/35 mt-1.5">Age {age} on {AGE_REFERENCE} — you may enter Under 21 or Seniors.</p>
+                    </>
+                  ) : (
+                    <div className={`${inputCls} flex items-center justify-between ${category ? '' : 'text-white/40'}`}>
+                      <span>{category || 'Enter date of birth first…'}</span>
+                      {category && <span className="font-condensed text-[11px] tracking-[2px] uppercase text-[#C9A84C]">Age {age}</span>}
+                    </div>
+                  )}
                 </div>
 
                 <div className="sm:col-span-2">

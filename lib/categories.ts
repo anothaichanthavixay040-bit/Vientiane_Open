@@ -86,3 +86,12 @@ export function categoryForAge(age: number): string {
   if (age <= 20) return 'Under 21'
   return 'Seniors'
 }
+
+// The categories an athlete may enter at a given age. For youth bands there is
+// exactly one. From 18 up, Seniors opens as an extra option: 18–20 may choose
+// Under 21 or Seniors; 21+ enter Seniors only. First entry is the default.
+export function categoriesForAge(age: number): string[] {
+  if (age >= 21) return ['Seniors']
+  if (age >= 18) return ['Under 21', 'Seniors']
+  return [categoryForAge(age)]
+}
