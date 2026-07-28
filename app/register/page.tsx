@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { categories, ageOn, categoriesForAge, AGE_REFERENCE } from '@/lib/categories'
 import { EventCheckboxes } from '@/components/EventCheckboxes'
-import { CheckCircle2, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react'
+import { CheckCircle2, AlertTriangle, ArrowRight, Loader2, Check } from 'lucide-react'
 
 type Team = { id: string; name: string }
 
@@ -38,12 +38,23 @@ export default function RegisterPage() {
   const set = (patch: Partial<Form>) => setForm(f => ({ ...f, ...patch }))
   const age = form.dateOfBirth ? ageOn(form.dateOfBirth) : null
   const catOptions = age != null ? categoriesForAge(age) : []   // eligible categories for this age
-  // Category is derived from age; from 18 up the athlete may choose Under 21 or
-  // Seniors, so honour their pick when it is still valid, else default to the first.
-  const category = catOptions.includes(form.category) ? form.category : (catOptions[0] || '')
   const canPickCategory = catOptions.length > 1
+  // From 18 up the athlete may enter Under 21, Seniors, or both — honour whatever
+  // valid picks are stored, defaulting to the first option. Kept in catOptions order.
+  const chosen = form.category.split(',').map(s => s.trim()).filter(c => catOptions.includes(c))
+  const selectedCats = chosen.length ? catOptions.filter(c => chosen.includes(c)) : catOptions.slice(0, 1)
+  const category = selectedCats.join(', ')   // what we store/submit (may be both divisions)
+  const primaryCat = selectedCats[0] || ''   // Under 21 & Seniors share weights
   const needsWeight = form.events.includes('Kumite')        // only individual Kumite has a weight class
-  const weights = weightsFor(category, form.gender)
+  const weights = weightsFor(primaryCat, form.gender)
+
+  // Toggle a division on/off, keeping at least one selected (18+ may pick both).
+  const toggleCat = (c: string) => {
+    const on = selectedCats.includes(c)
+    const next = catOptions.filter(x => (x === c ? !on : selectedCats.includes(x)))
+    if (!next.length) return   // never leave zero divisions selected
+    set({ category: next.join(', '), weightClass: '' })
+  }
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -141,13 +152,24 @@ export default function RegisterPage() {
                   )}
                 </div>
                 <div className="sm:col-span-2">
-                  <label className={labelCls}>Category <span className="text-white/30 normal-case tracking-normal">{canPickCategory ? '— choose your division (age qualifies for both)' : `— auto-assigned from age on ${AGE_REFERENCE}`}</span></label>
+                  <label className={labelCls}>Category <span className="text-white/30 normal-case tracking-normal">{canPickCategory ? '— choose one or both divisions (age qualifies for both)' : `— auto-assigned from age on ${AGE_REFERENCE}`}</span></label>
                   {canPickCategory ? (
                     <>
-                      <select className={inputCls} value={category} onChange={e => set({ category: e.target.value, weightClass: '' })}>
-                        {catOptions.map(c => <option key={c} value={c}>{c}</option>)}
-                      </select>
-                      <p className="text-xs text-white/35 mt-1.5">Age {age} on {AGE_REFERENCE} — you may enter Under 21 or Seniors.</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {catOptions.map(c => {
+                          const on = selectedCats.includes(c)
+                          return (
+                            <button type="button" key={c} onClick={() => toggleCat(c)} aria-pressed={on}
+                              className={`flex items-center gap-2.5 border px-3 py-2.5 text-left transition-colors ${on ? 'border-[#C8102E] bg-[#C8102E]/10' : 'border-[#C9A84C]/20 hover:border-[#C9A84C]/50'}`}>
+                              <span className={`w-4 h-4 flex-shrink-0 flex items-center justify-center border transition-colors ${on ? 'bg-[#C8102E] border-[#C8102E]' : 'border-white/30'}`}>
+                                {on && <Check size={12} className="text-white" />}
+                              </span>
+                              <span className="text-sm text-white">{c}</span>
+                            </button>
+                          )
+                        })}
+                      </div>
+                      <p className="text-xs text-white/35 mt-1.5">Age {age} on {AGE_REFERENCE} — enter Under 21, Seniors, or both.</p>
                     </>
                   ) : (
                     <div className={`${inputCls} flex items-center justify-between ${category ? '' : 'text-white/40'}`}>
